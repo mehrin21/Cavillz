@@ -1,0 +1,138 @@
+<%-include('../partials/adminHeader')-%>
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Banner Management</h2>
+                <p></p>
+            </div>
+            <div>
+            
+                <a href="/admin/addbanner" class="btn btn-primary btn-sm rounded">Create new</a>
+            </div>
+        </div>
+        <div class="card mb-4">
+
+
+
+
+
+            <div class="col-md-12">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+
+                            <tr>
+
+                                <th class="col-lg-4 col-sm-2 col-4 col-status">Image</th>
+                                <th class="col-lg-4 col-sm-2 col-4 col-status">Description</th>
+                                <th class="col-lg-4 col-sm-2 col-4 col-status">Edit</th>
+                                <th class="col-lg-2 col-sm-2 col-4 col-status">Delete</th>
+
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            <%bannerlist.forEach(function(banner) {%>
+                        
+                                <tr>
+                                    <td> <img src="upload/<%=banner?.image%>" class="img-sm img-thumbnail" alt="Item"></td>
+                                    
+                                    <td class="description-truncate" style=" display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+                                         max-width: 150px;">
+                                        <span><%=banner?.description%></span>
+                                    </td>
+                                    
+                                        <td> <a href="/admin/updatebanner?bannerid=<%=banner?._id %>"
+                                                class="btn btn-sm font-sm rounded btn-brand">
+                                                <i class="material-icons md-edit"></i>
+                                            </a>
+                                        </td>
+                        
+                                        <td> <input type="hidden" value="<%=banner?._id %>" class="deletebanner" name="deleteId">
+                                            <button class="bannerdel btn btn-sm font-sm rounded btn-brand">
+                                                <i class="material-icons md-delete_forever"></i></button>
+                        
+                                        </td>
+                                        
+                        
+                                            
+                                            
+                        
+                                </tr>
+                                <% })%>
+                        
+                        </tbody>
+                    </table>
+                </div>
+            </div> <!-- .col// -->
+
+        </div> <!-- card end// -->
+        <div class="pagination-area mt-30 mb-50">
+            <nav aria-label="Page navigation example">
+
+            </nav>
+        </div>
+    </section> <!-- content-main end// -->
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> -->
+    <!-- Include Toastr CSS (from a CDN) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css">
+
+    <!-- Include Toastr JavaScript (from a CDN) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        console.log("btn clicked")
+        $('.bannerdel').click(function (e) {
+            e.preventDefault()
+
+            let deletebanner = $(this).siblings('.deletebanner')
+            let delete_bannerId = deletebanner.val()
+            console.log(delete_bannerId)
+
+            swal.fire({
+                title: 'Are you sure want to delete the product?',
+                text: "This process can't be undone",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Proceed',
+            }).then((result)=>{
+                if(result.isConfirmed){
+                    $.ajax({
+                            url: `/admin/deletebanner`,
+                            type: "DELETE",
+                            data: {
+                                id: delete_bannerId
+                            },
+                            success: function (data) {
+                                window.location.reload();
+                            }
+
+                })
+            }
+            })
+        })
+// UPLOAD BTN
+// $(document).ready(function() {
+// $('.updatebtn').click(function(event){
+//     console.log("upload btn clicked")
+//     event.preventDefault()
+
+//     let update_btn = $(this).siblings('.uploadbtn')
+//     console.log(update_btn)
+//     let update_id = update_btn.val()
+//     console.log(update_id)
+// })
+// })
+
+    </script>
+
+
+    <%-include('../partials/adminfooterr')-%>

@@ -1,0 +1,676 @@
+<%-include('../partials/userheader')-%>
+
+	<main class="main">
+
+		<div class="page-header text-center  opacity-50" >
+			<div class="container">
+				<h1 class="page-title">Checkout<span>Shop</span></h1>
+			</div><!-- End .container -->
+		</div><!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/index">Home</a></li>
+					<li class="breadcrumb-item"><a href="/category">Shop</a></li>
+					<li class="breadcrumb-item"><a href="/cart">Shopping Cart</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Checkout</li>
+				</ol>
+			</div><!-- End .container -->
+		</nav><!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="checkout">
+				<div class="container">
+
+
+
+					<form action="#" class="">
+						<div class="row">
+
+							<div class="col-lg-9">
+								<a href="/dashboard#tab-address" class="btn btn-secondary">Add Address</a>
+								<p>The following addresses will be used on the checkout page by default.</p>
+
+								<div class="row">
+
+									<%if(user?.address[0]?.houseno !==" " || user?.address?.length>1 ){%>
+										<%let i=0%>
+
+											<% if(user?.address[0]?.houseno==" " ){%>
+												i=1
+												<%} %>
+
+													<% for (i=i; i <user.address.length; i++ ) { %>
+														<div class="col-lg-4">
+															<div class="card card-dashboard">
+																<div class="card-body">
+																	<h3 class="card-title">Billing Address</h3>
+																	<!-- End .card-title -->
+
+																	<p>
+																		<%=user?.address[i]?.fullname%><br>
+																			<%=user?.address[i]?.houseno%><br>
+																				<%=user?.address[i]?.state%><br>
+																					<%=user?.address[i]?.street%><br>
+																						<%=user?.address[i]?.pincode%>
+																							<br>
+																							<%=user?.address[i]?.phone%>
+
+																								<%=user?.address[i]?.email%>
+																									<br>
+
+																									<a href="#">Edit <i
+																											class="icon-edit"></i></a>
+																	</p>
+																	<div class="form-check">
+																		<input class="form-check-input  address"
+																			value="<%=user.address[i]._id%>"
+																			type="radio" name="customer_address"
+																			id="<%=user.address[i]._id%>" required>
+																	</div>
+																</div><!-- End .card-body -->
+															</div><!-- End .card-dashboard -->
+														</div><!-- End .col-lg-6 -->
+
+
+
+
+														<% } %>
+
+															<%}else{%>
+
+
+																<div class="col-lg-9">
+																	<div class="card card-dashboard">
+																		<div class="card-body">
+																			<h3 class="card-title">Billing Address</h3>
+																			<!-- End .card-title -->
+
+																			<a href="/dashboard" id="addAddress"
+																				role="tab" aria-controls="tab-address"
+																				aria-selected="false">
+																				<svg xmlns="http://www.w3.org/2000/svg"
+																					width="16" height="16"
+																					fill="currentColor"
+																					class="bi bi-plus-lg"
+																					viewBox="0 0 16 16">
+																					<path fill-rule="evenodd"
+																						d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+																				</svg>
+																			</a>
+
+
+																		</div><!-- End .card-body -->
+																	</div><!-- End .card-dashboard -->
+																</div><!-- End .col-lg-6 -->
+
+
+
+																<%} %>
+
+								</div>
+								<div class="cart-discount">
+									<form action="#">
+										<p style="color: green;" id="success"></p>
+										<p style="color: red;" id="invalid"></p>
+										<div class="input-group mt-2">
+											<input type="text" class="form-control" id="couponcode" name="couponcode"
+												placeholder="coupon code" />
+											<div class="input-group-append">
+												<button style="height: auto;margin-bottom: 1.3em;"
+													class="couponbtn btn btn-outline-primary-2" type="button">
+													<i class="icon-long-arrow-right"></i>
+												</button>
+											</div><!-- .End .input-group-append -->
+										</div><!-- End .input-group -->
+									</form>
+								</div><!-- End .cart-discount -->
+								<p class="mb-1">You Can use Any one coupon</p>
+								<div class="row">
+									<% coupons.forEach(coupon=> { %>
+										<div class="col-lg-6">
+											<div class="card card-dashboard">
+												<div class="coupon" style="background-color: black; color: white;">
+													<h3 class="card-title" style="color: white;">Coupon Code:
+														<%-coupon.name%>
+													</h3>
+													Discount : <%-coupon.discount%>%<br>
+														For Every Purchase above ₹ <%-coupon.minimum%><br>
+															Coupon Valid until <%=new
+																Date(coupon.expiry).toLocaleDateString()%><br>
+												</div><!-- End .card-body -->
+											</div><!-- End .card-dashboard -->
+										</div><!-- End .col-lg-6 -->
+										<% }) %>
+											          
+								</div>
+							</div>
+
+							<aside class="col-lg-3">
+								<div class="summary">
+									<h3 class="summary-title">Your Order</h3>
+									<!-- End .summary-title -->
+
+									<table class="table table-summary" id="protable" style="width: 100%;">
+										<thead>
+											<tr>
+												<th style="width: 40%;" colspan="2">Product</th>
+												<th style="width: 20%;"></th>
+												<th style="width: 40%;">Total</th>
+											</tr>
+										</thead>
+										<tbody>
+
+											<% for (var i=0; i < cart.product.length; i++) { %>
+												<tr>
+													<td colspan="2"><a href="#">
+															<%=cart.product[i].product_id.name%>
+														</a></td>
+													<td style="text-align: center;" class="quantit"><a href="#">x &nbsp;
+															<%= cart.product[i].quantity %>
+														</a></td>
+													<td class="proprice">₹<%= cart.product[i].quantity *
+															cart.product[i].product_id.price %>.00
+													</td>
+												</tr>
+												<% } %>
+
+
+													<tr class="summary-subtotal">
+														<td colspan="2">Subtotal:</td>
+														<td></td>
+														<td id="grandPrice">₹
+														</td>
+													</tr>
+													<tr class="summary-subtotal" style="display: none;">
+														<td>wallet:</td>
+														<!-- <td id="walletAmount"></td> -->
+														<td id="walletAmount">
+															<%=walletAmount %>
+														</td>
+													</tr>
+													<tr>
+														<td colspan="2">COUPON:</td>
+														<td></td>
+
+														<td id="discount">₹0.00</td>
+													</tr>
+
+
+													<tr>
+														<td colspan="2">Shipping:</td>
+														<td></td>
+														<td>Free shipping</td>
+													</tr>
+													<tr class="summary-total">
+														<td colspan="3">Total:</td>
+														<td>
+															<h4 id="finaltotal"></h4>
+														</td>
+													</tr>
+										</tbody>
+									</table>
+									<div class="accordion-summary" id="accordion-3">
+										<div class="">
+
+
+
+											<div id="collapse3-1" class="collapse " aria-labelledby="heading3-1"
+												data-parent="#accordion-3">
+												<div class="table-responsive">
+													<table class="table table-hover myTable">
+														<thead>
+															<tr>
+
+																<th style="width: 150px;">Coupon</th>
+																<th>Description</th>
+																<th style="width: 30px;">&ensp;</th>
+															</tr>
+														</thead>
+														<tbody>
+															<tr>
+																<td style="  padding-top: 00px;padding-bottom: 0px;">
+																	<p style="font-style: italic;"> None </p>
+																</td>
+																<td style="  padding-top: 00px;padding-bottom: 0px;">
+																	<p style="font-style: normal; font-size: 10px;">
+																	</p>
+																</td>
+																<td
+																	style="  padding-top: 21.75px; padding-bottom: 21.75px; display: flex; align-items: center; justify-content: center;">
+																	<button data-value="123" data-discount="0"
+																		class="couponRemove" type="submit">Apply
+																</td>
+
+															</tr>
+
+
+
+
+														</tbody>
+													</table>
+												</div>
+											</div><!-- End .collapse -->
+										</div><!-- End .card -->
+
+									</div><!-- End .accordion -->
+
+
+
+									<div class="accordion-summary" id="accordion-payment">
+
+										<div class="card">
+											<div class="card-header" id="heading-1">
+												<h2 class="card-title">
+													<a class="method" role="button" data-method="COD" value="COD"
+														data-toggle="collapse" href="#collapse-1" aria-expanded="true"
+														aria-controls="collapse-1">
+														Cash on delivery
+													</a>
+												</h2>
+											</div><!-- End .card-header -->
+											<div id="collapse-1" class="collapse show" aria-labelledby="heading-1"
+												data-parent="#accordion-payment">
+												<div class="">
+												</div><!-- End .card-body -->
+											</div><!-- End .collapse -->
+										</div><!-- End .card -->
+
+										<div class="card">
+											<div class="card-header" id="heading-4">
+												<h2 class="card-title">
+													<a class="collapsed method" value="Razorpay" role="button"
+														data-method="Razorpay" data-toggle="collapse" href="#collapse-4"
+														aria-expanded="false" aria-controls="collapse-4">
+														Razorpay
+													</a>
+												</h2>
+											</div><!-- End .card-header -->
+											<div id="collapse-4" class="collapse" aria-labelledby="heading-4"
+												data-parent="#accordion-payment">
+												<div class="">
+												</div><!-- End .card-body -->
+											</div><!-- End .collapse -->
+										</div><!-- End .card -->
+
+										<div class="card">
+											<div class="card-header" id="heading-3">
+												<h2 class="card-title">
+													<a class="collapsed method" value="wallet" role="button"
+														data-method="wallet" data-toggle="collapse" href="#collapse-3"
+														aria-expanded="false" aria-controls="collapse-3">
+														wallet payment
+													</a>
+												</h2>
+											</div><!-- End .card-header -->
+											<div id="collapse-3" class="collapse" aria-labelledby="heading-3"
+												data-parent="#accordion-payment">
+												<div class="">
+												</div><!-- End .card-body -->
+											</div><!-- End .collapse -->
+										</div><!-- End .card -->
+
+									</div><!-- End .accordion -->
+
+									<button id="placeOrder" value="<%=cart._id%>" type="submit"
+										class="btn btn-outline-primary-2 btn-order btn-block">
+										<span>Place Order</span>
+										<!-- <span class="btn-hover-text">Proceed to Checkout</span> -->
+									</button>
+								</div><!-- End .summary -->
+						</div><!-- End .summary -->
+						</aside><!-- End .col-lg-3 -->
+				</div>
+			</div>
+			<!-- End .row -->
+			</form>
+
+
+
+			<div class="tab-pane fade" id="tab-newaddress" role="tabpanel" aria-labelledby="tab-newaddress-link"
+				hidden="until  found">
+
+				<form action="#">
+
+					<div class="row">
+
+						<div class="col-sm-6">
+							<label>Full Name</label>
+							<!-- add address -->
+							<input type="text" name="fullName" id="addaddressname" class="form-control" required>
+						</div><!-- End .col-sm-6 -->
+
+						<div class="col-sm-6">
+							<label>house No/Name</label>
+							<input type="text" name="house" id="addhouse" class="form-control" required>
+						</div><!-- End .col-sm-6 -->
+
+					</div>
+					<div class="row">
+
+						<div class="col-sm-6">
+							<label>Street</label>
+							<input type="text" name="street" id="addstreet" class="form-control" required>
+						</div><!-- End .col-sm-6 -->
+
+						<div class="col-sm-6">
+							<label>State</label>
+							<input type="text" name="state" id="addstate" class="form-control" required>
+						</div><!-- End .col-sm-6 -->
+
+					</div>
+					<div class="row">
+
+						<div class="col-sm-4">
+							<label>Pincode</label>
+							<input type="text" name="pincode" id="addpincode" class="form-control" required>
+						</div><!-- End .col-sm-6 -->
+
+						<div class="col-sm-4">
+							<label>Phone</label>
+							<input type="text" name="phone" id="addphone" class="form-control" required>
+						</div><!-- End .col-sm-6 -->
+						<div class="col-sm-4">
+							<label>Alternate Phone</label>
+							<input type="text" name="alternatePhone" id="addalternatePhone" class="form-control"
+								required>
+						</div><!-- End .col-sm-6 -->
+
+					</div>
+
+					<button type="submit" class=" AddAdressbtn btn btn-outline-primary-2">
+						<span>ADD ADDRESS</span>
+						<i class="icon-long-arrow-right"></i>
+					</button>
+				</form>
+			</div><!-- .End .tab-pane -->
+
+
+
+
+
+		</div><!-- End .container -->
+		</div><!-- End .checkout -->
+		</div><!-- End .page-content -->
+
+	</main><!-- End .main -->
+
+	<!-- Razor Payment JScript -->
+	<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+	<!-- JQuery Script -->
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+		integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+	<!-- Sweet Alert -->
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.9/dist/sweetalert2.all.min.js"></script>
+
+	<!-- Bootstrap -->
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+		integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+		crossorigin="anonymous"></script>
+
+	<!-- toastr -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+	<!-- Checkout Script -->
+	<!-- <script src="Js/checkoutScript.js"></script> -->
+
+	<script>
+		$(document).ready(function () {
+			update_amounts();
+
+		});
+		function update_amounts() {
+			let subtotal = 0;
+
+			$("#protable > tbody > tr").each(function () {
+				// Product
+				let priceStr = $(this).find(".proprice").text().trim(); // Trim to remove extra whitespace
+				console.log("Price String: " + priceStr);
+
+				// Check if priceStr is not empty and contains digits
+				if (priceStr && priceStr.match(/\d/)) {
+					let priceNum = parseFloat(priceStr.replace(/[^\d\.]/g, ''));
+					console.log("Price Num: " + priceNum);
+					subtotal += priceNum;
+				}
+			});
+			$("#grandPrice").text("₹" + subtotal.toFixed(2));
+
+			let couponStr = $('#discount')
+				.text()
+				.replace(/[^\d\.]/g, "");
+			console.log("Coupon String: " + couponStr);
+			let couponValue = parseInt(couponStr); // Ensure it's a number or default to 0
+			console.log("Coupon Value: " + couponValue);
+
+			let total = subtotal - couponValue;
+			console.log("Total: " + total);
+
+			$("#finaltotal").text("₹" + total.toFixed(2));
+		}
+
+		$(document).ready(function () {
+			$(".couponbtn").on("click", function () {
+				console.log('clicked')
+				var coupon = $("#couponcode").val()
+
+				var subtotal = $("#grandPrice").text().replace(/[^\d\.]/g, "");
+
+				console.log("COUPON " + coupon)
+				console.log("subtotal" + subtotal)
+				// console.log("subbbb"+subtotal);
+				let data = { code: coupon, amount: subtotal };
+				console.log(data)
+				$.ajax({
+					url: "/checkvalidcoupon",
+					method: 'POST',
+					data: data,
+
+					success: function (response) {
+						if (response.msg == "1") {
+							let discount = response.discount;
+							console.log("discount" + discount)
+
+							$("#discount").text("₹" + discount.toFixed(2));
+							update_amounts();
+							document.getElementById("success").innerHTML = "Coupon Applied"
+						} else {
+							document.getElementById("invalid").innerHTML = response.message
+							setTimeout(function () {
+								document.getElementById("invalid").innerHTML = "";
+							}, 2000);
+							$("#couponcode").val("")
+						}
+					}
+				})
+			})
+		})
+
+
+		// PLACE ORDER
+		$("#placeOrder").click(function (event) {
+			console.log("clicked")
+            event.preventDefault();
+			const addressId = $('input[name = "customer_address"]:checked').val()
+			console.log("address " + addressId)
+			if (!addressId) {
+				Swal.fire({
+					title: "address",
+					text: "address not selected",
+					icon: "Error",
+					confirmButtonText: "OK"
+				})
+					.then((result) => {
+						if (result.isConfirmed) {
+							location.reload()
+						}
+					})
+
+			} else {
+				let paymentMethod = $('.accordion-summary .card-header .method[aria-expanded="true"]').data("method")
+				let couponCode = $("#couponcode").val()
+				// let productPrice = $('.proprice') 
+				let purchase_total = $('#finaltotal').text().replace(/[^\d\.]/g, "")
+				let coupon_amt = $('#discount').text().replace(/[^\d\.]/g, "")
+				let walletAmount = $("#walletAmount").text().replace(/[^\d\.]/g, "")
+				console.log("walletAmount " + walletAmount)
+
+				var data = {
+					paymentMethod: paymentMethod,
+					couponCode: couponCode,
+					purchase_total: purchase_total,
+					coupon_amt: coupon_amt,
+					addressId: addressId,
+					walletAmount: walletAmount
+				}
+				console.log(data)
+				if (paymentMethod == "Razorpay") {
+					$.ajax({
+						url: `/razorpay`,
+						type: 'post',
+						data: { amount: purchase_total },
+
+						success: function (res) {
+							if (!res.message) {
+								console.log("stockout");
+								stockOut(res.msg);
+							} else {
+								console.log("hello razorpay")
+								console.log(res.success)
+
+								if (res.success) {
+									var options = {
+										// Options for the Razorpay payment flow
+										"key": "" + res.key_id + "",
+										"amount": "" + res.amount + "",
+										"currency": "INR",
+										"name": 'CAVILL',
+										// "description": "" + res.description + "",
+										"image": "https://dummyimage.com/600x400/000/fff",
+										"handler": function (response) {
+											// Code executed when the payment is successful
+											Swal.fire({
+												title: "Success",
+												text: "Order Success",
+												icon: "info",
+												confirmButtonText: "OK"
+											}).then(function () {
+												saveOrder(); // Call the function to save the order
+											});
+										},
+										"prefill": {
+											// "contact": "" + res.contact + "",
+											"name": "" + res.name + "",
+											"email": "" + res.email + ""
+										},
+										"notes": {
+											"description": "Description"
+										},
+										"theme": {
+											"color": "#2300a3"
+										}
+									};
+									var razorpayObject = new Razorpay(options);
+
+									razorpayObject.on("payment.failed", function (response) {
+										// Code executed when the payment fails
+										Swal.fire({
+											title: "Payment Failed",
+											text: "Order Not Placed",
+											icon: "error",
+											confirmButtonText: "OK"
+										});
+									});
+									razorpayObject.open();
+								} else {
+									alert(res.msg);
+								}
+							}
+						}
+
+					})
+
+				} else if(paymentMethod == 'COD'){
+					$.ajax({
+						url:`/COD`,
+						type:"post",
+						data:data,
+						success:function(response){
+							if(response.message === "cash on delivery"){
+                                Swal.fire({
+									title: "Success",
+                                        text: "order placed successully",
+                                        icon: "success",
+                                        confirmButtonText: "OK",
+								}).then((result)=>{
+									if(result.isConfirmed){
+										window.location.href = '/success'
+									}
+								})
+						}
+					}
+					})
+				}
+				
+				else {
+					saveOrder()
+				}
+
+			}
+			function saveOrder() {
+				$.ajax({
+					url: "/placeorder",
+					method: "post",
+					data: data,
+					success: function (response) {
+						// Handle the success response (e.g., show a success message, redirect to profile page)
+						if (response.message == 'low wallet') {
+							Swal.fire({
+								title: 'sorry',
+								text: 'Insufficient wallet balance. Please choose another payment method.',
+								icon: 'error',
+								confirmButtonText: 'OK',
+							}).then((result) => {
+								if (result.isConfirmed) {
+									location.reload();
+								}
+							});
+						} else {
+							
+							Swal.fire({
+								title: 'success',
+								text: response.message,
+								icon: 'success',
+								confirmButtonText: 'OK',
+							}).then((result) => {
+								if (result.isConfirmed) {
+									window.location.href = '/success';
+								}
+							});
+						}
+					},
+					error: function (error) {
+						// Handle the error response (e.g., show an error message)
+						Swal.fire({
+							title: 'Error',
+							text: 'Something went wrong. Please try again later.',
+							icon: 'error',
+							confirmButtonText: 'OK',
+							});
+					}
+				});
+			}
+
+
+
+
+		})
+
+	</script>
+
+
+
+
+	<%-include('../partials/userfooter')-%>

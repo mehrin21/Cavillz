@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+<!-- molla/index-1.html  22 Nov 2019 09:55:06 GMT -->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>CAVILL</title>
+    <meta name="keywords" content="HTML5 Template">
+    <meta name="description" content="Molla - Bootstrap eCommerce Template">
+    <meta name="author" content="p-themes">
+    <!-- Favicon -->
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/icons/cavill-logo.jpg">
+    <link rel="icon" type="image" sizes="32x32" href="assets/images/icons/cavill-logo.jpg">
+    <link rel="icon" type="image" sizes="16x16" href="assets/images/icons/cavill-logo.jpg">
+    <link rel="manifest" href="assets/images/icons/site.html">
+    <link rel="mask-icon" href="assets/images/icons/safari-pinned-tab.svg" color="#666666">
+    <link rel="shortcut icon" href="assets/images/icons/favicon.ico">
+    <meta name="apple-mobile-web-app-title" content="Molla">
+    <meta name="application-name" content="Molla">
+    <meta name="msapplication-TileColor" content="#cc9966">
+    <meta name="msapplication-config" content="assets/images/icons/browserconfig.xml">
+    <meta name="theme-color" content="#ffffff">
+    <link rel="stylesheet" href="assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css">
+    <!-- Plugins CSS File -->
+    <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/css/plugins/owl-carousel/owl.carousel.css">
+    <link rel="stylesheet" href="assets/css/plugins/magnific-popup/magnific-popup.css">
+    <link rel="stylesheet" href="assets/css/plugins/jquery.countdown.css">
+    <!-- Main CSS File -->
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/skins/skin-demo-2.css">
+    <link rel="stylesheet" href="assets/css/demos/demo-2.css">
+</head>
+
+<body>
+    <div class="page-wrapper">
+        <header class="header header-2 header-intro-clearance">
+            <div class="header-top">
+                <div class="container">
+                    <div class="header-left">
+                        <!-- <p>Special collection already available.</p><a href="#">&nbsp;Read more ...</a> -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-right">
+
+                        <ul class="top-menu">
+                            <li>
+                                <!-- <a href="#">Links</a> -->
+                                <ul>
+                                    <li>
+                                        <div class="header-dropdown">
+                                            <!-- <a href="#">USD</a> -->
+                                            <div class="header-menu">
+                                                <ul>
+                                                    <!-- <li><a href="#">Eur</a></li>
+                                                    <li><a href="#">Usd</a></li> -->
+                                                </ul>
+                                            </div><!-- End .header-menu -->
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="header-dropdown">
+                                            <!-- <a href="#">English</a> -->
+                                            <div class="header-menu">
+                                                <!-- <ul>
+                                                    <li><a href="#">English</a></li>
+                                                    <li><a href="#">French</a></li>
+                                                    <li><a href="#">Spanish</a></li>
+                                                </ul> -->
+                                            </div><!-- End .header-menu -->
+                                        </div>
+                                    </li>
+                                    <!-- <li><a href="#signin-modal" data-toggle="modal">Sign in / Sign up</a></li> -->
+                                </ul>
+                            </li>
+                        </ul><!-- End .top-menu -->
+                    </div><!-- End .header-right -->
+
+                </div><!-- End .container -->
+            </div><!-- End .header-top -->
+
+            <div class="header-middle">
+                <div class="container">
+                    <div class="header-left">
+                        <button class="mobile-menu-toggler">
+                            <span class="sr-only">Toggle mobile menu</span>
+                            <i class="icon-bars"></i>
+                        </button>
+
+                        <a href="index.html" class="logo">
+                            <img src="assets/images/demos/demo-2/cavill-logo1.png" alt="cavill">
+                        </a>
+                    </div><!-- End .header-left -->
+
+                    <div class="header-center">
+                        <div
+                            class="header-search header-search-extended header-search-visible header-search-no-radius d-none d-lg-block">
+                            <a href="#" class="search-toggle" role="button"><i class="icon-search"></i></a>
+                            <form action="#" method="get">
+                                <div class="header-search-wrapper search-wrapper-wide">
+                                    <label for="q" class="sr-only">Search</label>
+                                    <input type="search" class="form-control" name="q" id="q"
+                                        placeholder="Search product ..." required>
+                                    <button class="btn btn-primary" type="submit"><i class="icon-search"></i></button>
+                                </div><!-- End .header-search-wrapper -->
+                            </form>
+                        </div><!-- End .header-search -->
+                    </div>
+
+                    <div class="header-right">
+                        <div class="account">
+                            <%if(session==null){%>
+                                <a href="/login" title="My account">
+                                    <div class="icon">
+                                        <i class="icon-user"></i>
+                                    </div>
+                                    <p>Login</p>
+                                </a>
+                                <%}else{%>
+                                    <a href="/logout" title="My account">
+                                        <div class="icon">
+                                            <i class="icon-user"></i>
+                                        </div>
+                                        <p>Logout</p>
+                                    </a>
+                                    <%}%>
+                        </div><!-- End .compare-dropdown -->
+
+                        <!-- <div class="wishlist">
+                            <a href="wishlist.html" title="Wishlist">
+                                <div class="icon">
+                                    <i class="icon-heart-o"></i>
+                                    <span class="wishlist-count badge">3</span>
+                                </div>
+                                <p>Wishlist</p>
+                            </a>
+                        </div>End .compare-dropdown -->
+
+                        <div class="dropdown cart-dropdown">
+                            <a href="/cart" class="dropdown-toggle" role="button">
+                                <div class="icon">
+                                    <i class="icon-shopping-cart"></i>
+
+                                </div>
+                                <p>Cart</p>
+
+                            </a>
+
+                            <div>
+                                <div>
+                                    <div>
+                                        <div>
+                                            <!-- <h4 class="product-title">
+                                                <a href="product.html">Beige knitted elastic runner shoes</a>
+                                            </h4> -->
+
+                                            <!-- <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span>
+                                                x $84.00
+                                            </span> -->
+                                        </div><!-- End .product-cart-details -->
+
+                                        <!-- <figure class="product-image-container">
+                                            <a href="product.html" class="product-image">
+                                                <img src="assets/images/products/cart/product-1.jpg" alt="product">
+                                            </a>
+                                        </figure> -->
+                                        <!-- <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a> -->
+                                    </div><!-- End .product -->
+
+                                    <div>
+                                        <div>
+                                            <!-- <h4 class="product-title">
+                                                <a href="product.html">Blue utility pinafore denim dress</a>
+                                            </h4> -->
+
+                                            <!-- <span class="cart-product-info">
+                                                <span class="cart-product-qty">1</span>
+                                                x $76.00
+                                            </span> -->
+                                        </div><!-- End .product-cart-details -->
+
+                                        <!-- <figure class="product-image-container">
+                                            <a href="product.html" class="product-image">
+                                                <img src="assets/images/products/cart/product-2.jpg" alt="product">
+                                            </a>
+                                        </figure>
+                                        <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a> -->
+                                    </div><!-- End .product -->
+                                </div><!-- End .cart-product -->
+
+                                <!-- <div class="dropdown-cart-total">
+                                    <span>Total</span>
+
+                                    <span class="cart-total-price">$160.00</span>
+                                </div>End .dropdown-cart-total -->
+
+                                <!--<div class="dropdown-cart-action">
+                                    <a href="/cart" class="btn btn-primary">View Cart</a>
+                                   <a href="checkout.html" class="btn btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a> 
+                                </div> End .dropdown-cart-total-->
+                            </div><!-- End .dropdown-menu -->
+                        </div><!-- End .cart-dropdown -->
+                    </div><!-- End .header-right -->
+                </div><!-- End .container -->
+            </div><!-- End .header-middle -->
+
+            <div class="header-bottom sticky-header">
+                <div class="container">
+                    <div class="header-left">
+                        <div class="dropdown category-dropdown">
+                            <!-- <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static" title="Browse Categories">
+                                Browse Categories
+                            </a> -->
+
+                            <div class="dropdown-menu">
+                                <nav class="side-nav">
+                                    <!-- <ul class="menu-vertical sf-arrows">
+                                        <li class="item-lead"><a href="#">Daily offers</a></li>
+                                        <li class="item-lead"><a href="#">Gift Ideas</a></li>
+                                        <li><a href="#">Beds</a></li> 
+                                        <li><a href="#">Lighting</a></li>
+                                        <li><a href="#">Sofas & Sleeper sofas</a></li>
+                                        <li><a href="#">Storage</a></li>
+                                        <li><a href="#">Armchairs & Chaises</a></li>
+                                        <li><a href="#">Decoration </a></li>
+                                        <li><a href="#">Kitchen Cabinets</a></li>
+                                        <li><a href="#">Coffee & Tables</a></li>
+                                        <li><a href="#">Outdoor Furniture </a></li> -->
+                                    <!-- </ul>End .menu-vertical -->
+                                </nav><!-- End .side-nav -->
+                            </div><!-- End .dropdown-menu -->
+                        </div><!--End .category-dropdown -->
+                    </div><!-- End .header-left -->
+
+                    <div class="header-center">
+                        <nav class="main-nav">
+                            <ul class="menu sf-arrows">
+                                <li class="megamenu-container active">
+                                    <a href="/" class="sf-with-ul">Home</a>
+
+
+                                <li>
+                                    <a href="/products" class="sf-with-ul">Products</a>
+
+                                    <div class="megamenu megamenu-md">
+                                        <div class="row no-gutters">
+                                            <div class="">
+                                                <div class="menu-col">
+                                                    <div class="row">
+                                                        <div class="">
+                                                            <!-- <div class="menu-title"></div> End .menu-title -->
+                                                            <!-- <ul>
+                                                                <li><a href="/boots">Boots</a><hr></li>
+                                                                <li><a href="category-2cols.html">Slippers & Sandals</a></li><hr>
+                                                                <li><a href="category.html">Shoes for Men</a></li><hr>
+                                                                
+                                                                
+                                                            </ul> -->
+
+                                                            <!-- <div class="menu-title">Shop no sidebar</div>< End .menu-title -->
+                                                            <!-- <ul>
+                                                                <li><a href="category-boxed.html"><span>Shop Boxed No Sidebar<span class="tip tip-hot">Hot</span></span></a></li>
+                                                                <li><a href="category-fullwidth.html">Shop Fullwidth No Sidebar</a></li>
+                                                            </ul> -->
+                                                        </div> <!--End .col-md-6-->
+
+                                                        <!-- <div class="col-md-4"> -->
+                                                        <!-- <div class="menu-title">Product Category</div> End .menu-title -->
+                                                        <!-- <ul>
+                                                                <li><a href="product-category-boxed.html">Product Category Boxed</a></li>
+                                                                <li><a href="product-category-fullwidth.html"><span>Product Category Fullwidth<span class="tip tip-new">New</span></span></a></li>
+                                                            </ul> -->
+                                                        <!-- <div class="menu-title">Shop Pages</div>End .menu-title -->
+                                                        <!-- <ul>
+                                                                <li><a href="cart.html">Cart</a></li>
+                                                                <li><a href="checkout.html">Checkout</a></li>
+                                                                <li><a href="wishlist.html">Wishlist</a></li>
+                                                                <li><a href="dashboard.html">My Account</a></li>
+                                                                <li><a href="#">Lookbook</a></li>
+                                                            </ul> -->
+                                                    </div><!-- End .col-md-6 -->
+                                                </div><!-- End .row -->
+                                            </div><!-- End .menu-col -->
+                                        </div><!-- End .col-md-8 -->
+
+                                        <!-- <div class="col-md-4"> -->
+                                        <!-- <div class="banner banner-overlay"> -->
+                                        <!-- <a href="category.html" class="banner banner-menu"> -->
+                                        <!-- <img src="assets/images/menu/banner-1.jpg" alt="Banner"> -->
+
+                                        <!-- <div class="banner-content banner-content-top"> -->
+                                        <!-- <div class="banner-title text-white">Last <br>Chance<br><span><strong>Sale</strong></span></div>End .banner-title -->
+                                        <!-- </div>  End .banner-content -->
+                                        <!-- </a> -->
+                                        <!--  </div> End .banner banner-overlay -->
+                                        <!-- </div>End .row -->
+                                        <!-- </div>End .megamenu megamenu-md -->
+                                </li>
+                     
+                                <li>
+                                    <a href="#" class="sf-with-ul">AboutUs</a>
+
+                                    <!-- <ul>
+                                        <li>
+                                            <a href="about.html" class="sf-with-ul">About</a>
+
+                                            <ul>
+                                                <li><a href="about.html">About 01</a></li>
+                                                <li><a href="about-2.html">About 02</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="contact.html" class="sf-with-ul">Contact</a>
+
+                                            <ul>
+                                                <li><a href="contact.html">Contact 01</a></li>
+                                                <li><a href="contact-2.html">Contact 02</a></li>
+                                            </ul>
+                                        </li>
+                                        <li><a href="login.html">Login</a></li>
+                                        <li><a href="faq.html">FAQs</a></li>
+                                        <li><a href="404.html">Error 404</a></li>
+                                        <li><a href="coming-soon.html">Coming Soon</a></li>
+                                    </ul>
+                                </li> -->
+                                <li>
+                                    <a href="blog.html" class="sf-with-ul">Contact</a>
+
+                                    <!-- <ul>
+                                        <li><a href="blog.html">Classic</a></li>
+                                        <li><a href="blog-listing.html">Listing</a></li>
+                                        <li>
+                                            <a href="#">Grid</a>
+                                            <ul>
+                                                <li><a href="blog-grid-2cols.html">Grid 2 columns</a></li>
+                                                <li><a href="blog-grid-3cols.html">Grid 3 columns</a></li>
+                                                <li><a href="blog-grid-4cols.html">Grid 4 columns</a></li>
+                                                <li><a href="blog-grid-sidebar.html">Grid sidebar</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Masonry</a>
+                                            <ul>
+                                                <li><a href="blog-masonry-2cols.html">Masonry 2 columns</a></li>
+                                                <li><a href="blog-masonry-3cols.html">Masonry 3 columns</a></li>
+                                                <li><a href="blog-masonry-4cols.html">Masonry 4 columns</a></li>
+                                                <li><a href="blog-masonry-sidebar.html">Masonry sidebar</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Mask</a>
+                                            <ul>
+                                                <li><a href="blog-mask-grid.html">Blog mask grid</a></li>
+                                                <li><a href="blog-mask-masonry.html">Blog mask masonry</a></li>
+                                            </ul>
+                                        </li>
+                                        <li>
+                                            <a href="#">Single Post</a>
+                                            <ul>
+                                                <li><a href="single.html">Default with sidebar</a></li>
+                                                <li><a href="single-fullwidth.html">Fullwidth no sidebar</a></li>
+                                                <li><a href="single-fullwidth-sidebar.html">Fullwidth with sidebar</a></li>
+                                            </ul>
+                                        </li>
+                                    </ul> -->
+                                </li>
+                                <!-- <li> -->
+                                <!-- <a href="elements-list.html" class="sf-with-ul">Elements</a> -->
+
+                                <!-- <ul>
+                                        <li><a href="elements-products.html">Products</a></li>
+                                        <li><a href="elements-typography.html">Typography</a></li>
+                                        <li><a href="elements-titles.html">Titles</a></li>
+                                        <li><a href="elements-banners.html">Banners</a></li>
+                                        <li><a href="elements-product-category.html">Product Category</a></li>
+                                        <li><a href="elements-video-banners.html">Video Banners</a></li>
+                                        <li><a href="elements-buttons.html">Buttons</a></li>
+                                        <li><a href="elements-accordions.html">Accordions</a></li>
+                                        <li><a href="elements-tabs.html">Tabs</a></li>
+                                        <li><a href="elements-testimonials.html">Testimonials</a></li>
+                                        <li><a href="elements-blog-posts.html">Blog Posts</a></li>
+                                        <li><a href="elements-portfolio.html">Portfolio</a></li>
+                                        <li><a href="elements-cta.html">Call to Action</a></li>
+                                        <li><a href="elements-icon-boxes.html">Icon Boxes</a></li>
+                                    </ul> -->
+                                <!-- </li> -->
+                                <!-- </ul>End .menu -->
+                        </nav><!-- End .main-nav -->
+                    </div><!-- End .header-center -->
+
+                    <!-- <div class="header-right">
+                        <i class="la la-lightbulb-o"></i><p>Clearance<span class="highlight">&nbsp;Up to 30% Off</span></p>
+                    </div> -->
+                </div><!-- End .container -->
+            </div><!-- End .header-bottom -->
+        </header><!-- End .header -->
+
+        <main class="main">
+            <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+                <div class="container">
+                    <h1 class="page-title">MENS SHOPPING CONER<span>Shop</span></h1>
+                </div><!-- End .container -->
+            </div><!-- End .page-header -->
+            <nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+                <div class="container">
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                        <li class="breadcrumb-item"><a href="#">Shop</a></li>
+                        <li class="breadcrumb-item active" aria-current="page">Mens</li>
+                    </ol>
+                </div><!-- End .container -->
+            </nav><!-- End .breadcrumb-nav -->
+
+            <div class="page-content" style="background-color: white;">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-9">
+                            <div class="toolbox">
+                                <div class="toolbox-left">
+                                    <div class="toolbox-info">
+
+                                    </div><!-- End .toolbox-info -->
+                                </div><!-- End .toolbox-left -->
+
+                                <div class="toolbox-right">
+                                    <div class="toolbox-sort">
+                                        <label for="sortby">Sort by:</label>
+                                        <div class="select-custom">
+                                            <select name="sortby" id="sortby" class="form-control">
+                                                <option value="popularity" selected="selected">Most Popular</option>
+                                                <option value="rating">Most Rated</option>
+                                                <option value="date">Date</option>
+                                            </select>
+                                        </div>
+                                    </div><!-- End .toolbox-sort -->
+                                    <div class="toolbox-layout">
+                                        <a href="category-list.html" class="btn-layout">
+                                            <svg width="16" height="10">
+                                                <rect x="0" y="0" width="4" height="4" />
+                                                <rect x="6" y="0" width="10" height="4" />
+                                                <rect x="0" y="6" width="4" height="4" />
+                                                <rect x="6" y="6" width="10" height="4" />
+                                            </svg>
+                                        </a>
+
+                                        <a href="category-2cols.html" class="btn-layout">
+                                            <svg width="10" height="10">
+                                                <rect x="0" y="0" width="4" height="4" />
+                                                <rect x="6" y="0" width="4" height="4" />
+                                                <rect x="0" y="6" width="4" height="4" />
+                                                <rect x="6" y="6" width="4" height="4" />
+                                            </svg>
+                                        </a>
+
+                                        <a href="category.html" class="btn-layout">
+                                            <svg width="16" height="10">
+                                                <rect x="0" y="0" width="4" height="4" />
+                                                <rect x="6" y="0" width="4" height="4" />
+                                                <rect x="12" y="0" width="4" height="4" />
+                                                <rect x="0" y="6" width="4" height="4" />
+                                                <rect x="6" y="6" width="4" height="4" />
+                                                <rect x="12" y="6" width="4" height="4" />
+                                            </svg>
+                                        </a>
+
+                                        <a href="category-4cols.html" class="btn-layout active">
+                                            <svg width="22" height="10">
+                                                <rect x="0" y="0" width="4" height="4" />
+                                                <rect x="6" y="0" width="4" height="4" />
+                                                <rect x="12" y="0" width="4" height="4" />
+                                                <rect x="18" y="0" width="4" height="4" />
+                                                <rect x="0" y="6" width="4" height="4" />
+                                                <rect x="6" y="6" width="4" height="4" />
+                                                <rect x="12" y="6" width="4" height="4" />
+                                                <rect x="18" y="6" width="4" height="4" />
+                                            </svg>
+                                        </a>
+                                    </div><!-- End .toolbox-layout -->
+                                </div><!-- End .toolbox-right -->
+                            </div><!-- End .toolbox -->
+                            <!---------------------------------------------PRODUCT------------------------------------------------------------->
+                            <div class="products mb-3" id="product-list">
+                                <div class="row ">
+
+                                    <%product.forEach(function(product){%>
+                                      
+                                            <div id="items" class="col-6 col-md-3 col-lg-3 product-item mb-4 "
+                                                data-price="<%=product.price%>" data-brand="<%=product.brand%>"
+                                                data-category="<%=product.category%>"
+                                                data-size="<%=product.size%>"
+                                                data-color="<%=product.color%>"
+                                                data-brand="<%=product.brand%>"
+                                                data-category1="<%=product.category1%>">
+                                                <div class="product product-7 text-center "
+                                                    style="border: #333333 1px solid;">
+                                                    <figure class="product-media">
+
+                                                        <a href="/product?productid=<%=product._id%>">
+                                                            <img src="/upload/<%=product.image[0]%>" alt="Product image"
+                                                                class="product-image">
+                                                        </a>
+
+                                                        <div class="product-action-vertical">
+                                                            <button type="radio" style="border: none;"
+                                                                data-id="<%=product._id%>"
+                                                                class="addtowishlist btn-product-icon btn-wishlist btn-expandable ">
+                                                                <span>add to wishlist </span> </button>
+                                                        </div><!-- End .product-action-vertical -->
+
+                                                        <div class="product-action">
+                                                            <button type="button" class="addtocart btn-product btn-cart"
+                                                                style="border: none;" data-id="<%=product._id%>" data-price="<%product.price%>">
+                                                                Add to cart
+                                                            </button>
+                                                        </div><!-- End .product-action -->
+
+                                                    </figure><!-- End .product-media -->
+
+                                                    <div class="product-body">
+                                                        <div class="product-cat">
+                                                            <a href="/product?productid=<%=product._id%>">Mens</a>
+                                                        </div><!-- End .product-cat -->
+                                                        <h3 class="product-title"><a style="display: -webkit-box;
+                                                            -webkit-box-orient: vertical;
+                                                            -webkit-line-clamp: 2;
+                                                             overflow: hidden;"
+                                                                href="/product?productid=<%=product._id%>">
+                                                                <%=product.name%>
+                                                            </a>
+                                                        </h3>
+
+                                                        <div class="product-price" id="price-product" >
+                                                            ₹ <%=product.price%>
+                                                        </div><!-- End .product-price -->
+                                                        <div class="ratings-container">
+                                                            <div class="ratings">
+                                                                <div class="ratings-val" style="width: 20%;"></div>
+                                                                <!-- End .ratings-val -->
+                                                            </div><!-- End .ratings -->
+                                                            <span class="ratings-text">( 2 Reviews )</span>
+                                                        </div><!-- End .rating-container -->
+
+                                                        <div class="product-nav product-nav-thumbs">
+                                                            <a href="#" class="active">
+                                                                <img src="/upload/<%=product.image[0]%>" alt="IMG">
+                                                            </a>
+                                                            <a href="#">
+                                                                <img src="/upload/<%=product.image[1]%>" alt="img">
+                                                            </a>
+
+                                                            <a href="#">
+                                                                <img src="/upload/<%=product.image[2]%>" alt="img">
+                                                            </a>
+                                                        </div><!-- End .product-nav -->
+                                                    </div><!-- End .product-body -->
+                                                </div><!-- End .product -->
+                                            </div><!-- End .col-sm-6 col-lg-4 -->
+                                            
+                                                <%})%>
+                                </div>
+                            </div>
+
+
+                            <nav aria-label="Page navigation">
+                                <ul class="pagination justify-content-center">
+                                    <li class="page-item disabled">
+                                        <a class="page-link page-link-prev" href="#" aria-label="Previous" tabindex="-1"
+                                            aria-disabled="true">
+                                            <span aria-hidden="true"><i class="icon-long-arrow-left"></i></span>Prev
+                                        </a>
+                                    </li>
+                                    <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a>
+                                    </li>
+                                    <li class="page-item"><a class="page-link" href="#">2</a></li>
+                                    <li class="page-item"><a class="page-link" href="#">3</a></li>
+                                    <li class="page-item-total">of 6</li>
+                                    <li class="page-item">
+                                        <a class="page-link page-link-next" href="#" aria-label="Next">
+                                            Next <span aria-hidden="true"><i class="icon-long-arrow-right"></i></span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </nav>
+                        </div><!-- End .col-lg-9 -->
+                        <aside class="col-lg-3 order-lg-first" style="background-color:white;">
+                            <div class="sidebar sidebar-shop ">
+                                <div class="widget widget-clean">
+                                    <label>Filters:</label>
+                                    <a href="#" class="sidebar-filter-clear">Clean All</a>
+                                </div><!-- End .widget widget-clean -->
+                                <!-- -----------------------------CATEGORY 1 ITERATION ------------------------------------- -->
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true" aria-controls="widget-1">
+                                            Main Category
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+                                
+                                    <div class="collapse show" id="widget-1">
+                                        <div class="widget-body">
+                                            <div class="filter-items">
+                                                <div class="filter-item">
+                                                    <% const uniqueCategories = new Set(); %>
+                                                    <% product.forEach(function(category) { %>
+                                                        <% if (!uniqueCategories.has(category.category1)) { %>
+                                                            <div class="custom-control custom-checkbox">
+                                                                <input type="checkbox"
+                                                                    class="custom-control-input category1-checkbox"
+                                                                    id="<%= category.category1 %>" onchange="filterProducts()">
+                                                                <label class="custom-control-label"
+                                                                    for="<%= category.category1 %>">
+                                                                    <%= category.category1 %>
+                                                                </label>
+                                                            </div><!-- End .custom-checkbox -->
+                                                            <% uniqueCategories.add(category.category1); %>
+                                                        <% } %>
+                                                    <% }) %>
+                                                </div><!-- End .filter-item -->
+                                            </div><!-- End .filter-items -->
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+                        
+                                <!-- -----------------------------CATEGORY ITERATION ------------------------------------- -->
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true"
+                                            aria-controls="widget-1">
+                                            Category
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-1">
+                                        <div class="widget-body">
+                                            <% category.forEach(function(category) { %>
+                                                <div class="filter-items">
+
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox"
+                                                                class="custom-control-input category-checkbox"
+                                                                id="<%=category.name%>" onchange="filterProducts()">
+                                                            <label class="custom-control-label"
+                                                                for="<%= category.name %>">
+                                                                <%= category.name %>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+                                                </div><!-- End .filter-items -->
+                                                <% }) %>
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+                                <!-- ----------------------------- END CATEGORY ITERATION ------------------------------------- -->
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-2" role="button" aria-expanded="true"
+                                            aria-controls="widget-2">
+                                            Size
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+                                    <div class="collapse show" id="widget-2">
+                                        <div class="widget-body">
+                                            <% let uniqueSizes=new Set(); // Iterate through products to collect unique
+                                                product.forEach(function(size) { uniqueSizes.add(size.size); });
+                                                // Convert the Set to an array for rendering let
+                                                uniqueSizesArray=Array.from(uniqueSizes); // Render unique sizes as
+                                                uniqueSizesArray.forEach(function(size) { %>
+                                                <div class="filter-items">
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox"
+                                                                class="custom-control-input size-checkbox"
+                                                                id="<%= size %>" onchange="filterProducts()">
+                                                            <label class="custom-control-label" for="<%= size %>">
+                                                                <%= size %>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+                                                </div><!-- End .filter-items -->
+                                                <% })%>
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div>
+
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-3" role="button" aria-expanded="true"
+                                            aria-controls="widget-3">
+                                            Colour
+                                        </a>
+
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-1">
+                                        <div class="widget-body">
+
+
+                                            <% let uniqueColor=new Set(); // Iterate through products to collect unique
+                                                product.forEach(function(color) { uniqueColor.add(color.color); }) //
+                                                // Convert the Set to an array for rendering
+                                                let uniqueColorArray=Array.from(uniqueColor); // Render unique sizes as
+                                                uniqueColorArray.forEach(function(color) { %>
+                                                <div class="filter-items">
+                                                    <div class="filter-item">
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox"
+                                                                class="custom-control-input color-checkbox"
+                                                                id="<%= color %>" onchange="filterProducts()">
+                                                            <label class="custom-control-label" for="<%= color %>">
+                                                                <%= color %>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+                                                </div><!-- End .filter-items -->
+                                                <% }); %>
+                                        </div><!-- End .widget-body -->
+
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+
+
+
+                                <!-- -----------------------------BRAND ITERATION ------------------------------------- -->
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-4" role="button" aria-expanded="true"
+                                            aria-controls="widget-4">
+                                            Brand
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-4">
+                                        <div class="widget-body">
+                                            <% brand.forEach(function(brand) { %>
+
+                                                <div class="filter-items">
+                                                    <div class="filter-item">
+
+                                                        <div class="custom-control custom-checkbox">
+                                                            <input type="checkbox"
+                                                                class="custom-control-input brandCheck"
+                                                                id="<%=brand.brand%>" onchange="filterProducts()">
+                                                            <label class="custom-control-label"
+                                                                for="<%= brand.brand %>">
+                                                                <%= brand.brand %>
+                                                            </label>
+                                                        </div><!-- End .custom-checkbox -->
+                                                    </div><!-- End .filter-item -->
+
+
+                                                </div><!-- End .filter-items -->
+                                                <%})%>
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+
+                                <div class="widget widget-collapsible">
+                                    <h3 class="widget-title">
+                                        <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true"
+                                            aria-controls="widget-5">
+
+                                        </a>
+                                    </h3><!-- End .widget-title -->
+
+                                    <div class="collapse show" id="widget-5">
+                                        <div class="widget-body">
+                                            <div class="filter-price">
+                                                <div class="filter-price-text">
+
+                                                    <span id="filter-price-range"></span>
+                                                </div><!-- End .filter-price-text -->
+
+                                                <div id="price-slider"></div><!-- End #price-slider -->
+                                            </div><!-- End .filter-price -->
+                                        </div><!-- End .widget-body -->
+                                    </div><!-- End .collapse -->
+                                </div><!-- End .widget -->
+                            </div><!-- End .sidebar sidebar-shop -->
+                        </aside><!-- End .col-lg-3 -->
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .page-content -->
+        </main><!-- End .main -->
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+        <!--Sweet Alert-->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.js"></script>
+
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+        <!-- Add Toastr CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+
+
+
+        <!-- toastr -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
+
+        <script>
+            $(document).ready(function () {
+                $('.addtocart').on('click', function () {
+                    let idfrombutton = $(this).data('id')
+                    console.log(idfrombutton)
+                   let priceString = $(this).closest('.product-item').find('.product-price').text();
+                   let cleanPriceString = priceString.replace(/[^\d.]/g, '');
+                   let price =  parseFloat(cleanPriceString);
+                   console.log("price " + price)
+
+                    const session = '<%=session%>';
+                    console.log(session)
+
+                    const cartData = {
+                        _id: idfrombutton,
+                        userID: session,
+                        price:price
+                    }
+                    console.log(cartData)
+
+                    if (session) {
+                        $.ajax({
+                            url: `/addtocart`,
+                            method: "put",
+                            data: cartData,
+                            success: function (response) {
+                                toastr.options = {
+                                    "closeButton": false,
+                                    "debug": false,
+                                    "newestOnTop": false,
+                                    "progressBar": false,
+                                    "positionClass": "toast-top-right",
+                                    "preventDuplicates": false,
+                                    "showDuration": "200",
+                                    "hideDuration": "500",
+                                    "timeOut": "1000",
+                                    "extendedTimeOut": "1000",
+                                    "showEasing": "swing",
+                                    "hideEasing": "linear",
+                                    "showMethod": "fadeIn",
+                                    "hideMethod": "fadeOut"
+                                };
+                                if (response.message == "Product already added") {
+                                    toastr.info("Product Already Added to your cart", "Don't worry");
+                                } else {
+                                    toastr.success("Product Added to the cart", "Added");
+                                }
+                            }
+                        })
+                    } else {
+                        $.ajax({
+                            url: `/login`,
+                            method: "get",
+                            data: cartData,
+                            success: function (response) {
+                                console.log(response);
+                                if (response.title == "successfully login") {
+                                    $.ajax({
+                                        url: `/addtocart`,
+                                        method: "put",
+                                        data: cartData,
+                                        success: function (response) {
+                                            toastr.options = {
+                                                "closeButton": false,
+                                                "debug": false,
+                                                "newestOnTop": false,
+                                                "progressBar": false,
+                                                "positionClass": "toast-top-right",
+                                                "preventDuplicates": false,
+                                                "showDuration": "200",
+                                                "hideDuration": "500",
+                                                "timeOut": "1000",
+                                                "extendedTimeOut": "1000",
+                                                "showEasing": "swing",
+                                                "hideEasing": "linear",
+                                                "showMethod": "fadeIn",
+                                                "hideMethod": "fadeOut"
+                                            };
+
+                                            if (response.message === "Product already added") {
+                                                toastr.info("Product Already Added to your cart", "Don't worry");
+                                            } else {
+                                                toastr.success("Product Added to the cart", "Added");
+                                            }
+                                        }
+                                    })
+                                } else {
+                                    // REDIRECTING
+                                    window.location.href = "/login"
+                                }
+                            }
+                        })
+                    }
+                })
+            })
+
+            // ADDTOWISHLIST 
+
+            $('.addtowishlist').on('click', function () {
+                let button_id = $(this).attr('data-id')
+                console.log(button_id)
+
+                const session = '<%=session%>';
+                console.log(session)
+
+                const wish_data = {
+                    _id: button_id,
+                    userid: session
+                }
+
+                $.ajax({
+                    url: `/addtowishlist`,
+                    method: "put",
+                    data: wish_data,
+                    success: function (response) {
+                        toastr.options = {
+                            "closeButton": false,
+                            "debug": false,
+                            "newestOnTop": true,
+                            "progressBar": false,
+                            "positionClass": "toast-top-right",
+                            "preventDuplicates": false,
+                            "onclick": null,
+                            "showDuration": "500",
+                            "hideDuration": "800",
+                            "timeOut": "1000",
+                            "extendedTimeOut": "1000",
+                            "showEasing": "swing",
+                            "hideEasing": "linear",
+                            "showMethod": "fadeIn",
+                            "hideMethod": "fadeOut"
+                        }
+                        if (response.message === "Added to wishlist") {
+                            toastr.success("product added to wishlist", "Added")
+                        } else {
+                            toastr.info("product already added to you wishlist", "Don't worry")
+                        }
+                    }
+
+                })
+            })
+
+    function filterProducts() {
+    const categoryCheckboxes = document.querySelectorAll('.category-checkbox:checked');
+    const sizeCheckboxes = document.querySelectorAll('.size-checkbox:checked');
+    const colorCheckboxes = document.querySelectorAll('.color-checkbox:checked');
+    const brandCheckboxes = document.querySelectorAll('.brand-checkbox:checked');
+    const mainCategoryCheckboxes = document.querySelectorAll('.category1-checkbox:checked');
+  
+
+    const selectedCategories = Array.from(categoryCheckboxes).map(checkbox => checkbox.id);
+    const selectedSizes = Array.from(sizeCheckboxes).map(checkbox => checkbox.id);
+    const selectedColors = Array.from(colorCheckboxes).map(checkbox => checkbox.id);
+    const selectedBrands = Array.from(brandCheckboxes).map(checkbox => checkbox.id);
+    const selectedMainCategories = Array.from(mainCategoryCheckboxes).map(checkbox => checkbox.id);
+
+    const productItems = document.querySelectorAll('.product-item');
+
+    productItems.forEach(item => {
+        const category = item.dataset.category;
+        const size = item.dataset.size;
+        const color = item.dataset.color;
+        const brand = item.dataset.brand;
+        const mainCategory = item.dataset.category1;
+
+        // Check if the item matches selected criteria
+        const matchCategory = selectedCategories.length === 0 || selectedCategories.includes(category);
+        const matchSize = selectedSizes.length === 0 || selectedSizes.includes(size);
+        const matchColor = selectedColors.length === 0 || selectedColors.includes(color);
+        const matchBrand = selectedBrands.length === 0 || selectedBrands.includes(brand);
+        const matchMainCategory = selectedMainCategories.length === 0 || selectedMainCategories.includes(mainCategory);
+
+        if (matchCategory && matchSize && matchColor && matchBrand && matchMainCategory) {
+            item.style.display = 'block';
+        } else {
+            item.style.display = 'none';
+        }
+    });
+}
+
+            
+
+
+
+
+        </script>
+        <%-include('../partials/userfooter')-%>

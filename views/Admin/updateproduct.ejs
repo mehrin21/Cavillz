@@ -1,0 +1,145 @@
+<%-include('../partials/adminHeader')-%>
+    <section class="content-main">
+        <form action="/admin/updateproduct?productid=<%=product._id %>" method="post" enctype="multipart/form-data">
+            <div class="row">
+                <div class="col-9">
+                    <div class="content-header">
+                        <h2 class="content-title">Update Product</h2>
+                        <div>
+                            <!-- <button class="btn btn-light rounded font-sm mr-5 text-body hover-up">Save to draft</button> -->
+                            <button class="btn btn-md rounded font-sm hover-up">Update</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Basic</h4>
+                        </div>
+                        <div class="card-body">
+                         
+                                <div class="mb-4">
+                                    <input type="hidden" value="<%=product._id%>" name="id">
+                                    <label for="product_name" class="form-label">Product title</label>
+                                    <input type="text" name="name" value="<%=product.name%>" class="form-control"
+                                        id="product_name" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Brand</label>
+                                    <input type="text" name="brand"  value="<%=product.brand%>" class="form-control"
+                                        id="product_name" required>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Product Description</label>
+                                    <textarea type="text" name="description" value="<%=product.description%>" placeholder="<%=product.description%>"
+                                        class="form-control" id="product_name"></textarea>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label class="form-label">Regular price</label>
+                                            <div class="row gx-2">
+                                                <input  name="price" type="text" class="form-control" value="<%=product.price%>"
+                                                    required>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label class="form-label">Quantity</label>
+                                            <input type="text" name="quantity"  value="<%=product.quantity%>"
+                                                class="form-control" id="product_name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4">
+                                        <div class="mb-4">
+                                            <label class="form-label">size</label>
+                                            <input type="text" name="size"  class="form-control" value="<%=product.size%>"
+                                                id="product_name" required>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-4">
+                                            <label class="form-label">Coupon</label>
+                                            <select class="form-select" name="coupon"  class="form-control" value="<%=product.coupon%>"
+                                                id="product_name" required>
+                                                <% coupons.forEach(function(coupons) { %>
+
+                                                    <option value="<%=coupons.name%>">
+                                                        <%=coupons.name%>
+                                                    </option>
+    
+                                                    <% }); %>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6">
+                                        <div class="mb-4">
+                                            <label class="form-label">Color</label>
+                                            <input type="text" name="color"  class="form-control" value="<%=product.color%>"
+                                                id="product_name" required>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                          
+                        </div>
+                    </div>
+                </div> <!-- card end// -->
+
+                <div class="col-lg-3">
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Media</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="input-upload">
+                                
+                                <input class="form-control" name="image"  type="file" required multiple>
+                                <% for(let i=0;i<product.image.length;i++){%>
+                                    <a href="/admin/imagecrop?productid=<%=product._id%>"><img src="upload/<%=product.image[i]%>" alt=""></a>
+                                    
+                               <% } %>
+                            </div>
+                        </div>
+                    </div> <!-- card end// -->
+                    <div class="card mb-4">
+                        <div class="card-header">
+                            <h4>Category</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="row gx-2">
+                                <div class="col-sm-6 mb-3">
+                                    <label class="form-label">Category</label>
+                                    <select class="form-select" name="category" value="<%=product.category%>" required>
+                                        <% category.forEach(function(category) { %>
+
+                                            <option value="<%=category.name%>">
+                                                <%=category.name%>
+                                            </option>
+
+                                            <% }); %>
+                                    </select>
+                                </div>
+
+                            </div> <!-- row.// -->
+                        </div>
+                    </div> <!-- card end// -->
+                   
+                </div>
+            </div>
+        </form>
+    </section> <!-- content-main end// -->
+    <% if (locals.title) { %>
+        <script>
+          Swal.fire({
+            icon: 'success',
+            title: '<%=title%>',
+            showConfirmButton: false,
+            timer: 10000
+          }); 
+        </script>
+      <% } %>
+
+    <%-include('../partials/adminfooterr')-%>

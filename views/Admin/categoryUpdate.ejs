@@ -1,0 +1,40 @@
+
+<%-include('../partials/adminHeader')-%>
+        <section class="content-main">
+            <div class="content-header">
+                <div>
+                    <h2 class="content-title card-title">Categories </h2>
+                    <p>Add, edit or delete a category</p>
+                </div>
+                <div>
+                    <input type="text" placeholder="Search Categories" class="form-control bg-white">
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <form action="/admin/updatecategory?categoryid=<%=category._id%>" method="post">
+                                <div class="mb-4">
+                                    <label for="product_name" class="form-label">Name</label>
+                                    <input type="text"class="form-control" id="product_name" name="name" value="<%=category.name%>"required>
+                                </div>
+                               
+                                 
+                                <div class="mb-4">
+                                    <label class="form-label">Description</label>
+                                    <textarea class="form-control" name="description" value="<%=category.description%>" placeholder="<%=category.description%>" required></textarea>
+                                </div>
+                                <div class="d-grid">
+                                    <button class="btn btn-primary" id="submit">Create category</button>
+                                </div>
+                            </form>
+                        </div>
+                      
+                            </div>
+                        </div> <!-- .col// -->
+                    </div> <!-- .row // -->
+                </div> <!-- card body .// -->
+            </div> <!-- card .// -->
+        </section> <!-- content-main end// -->
+        <%-include('../partials/adminfooterr')-%>

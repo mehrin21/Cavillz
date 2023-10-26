@@ -1,0 +1,145 @@
+<%-include('../partials/adminHeader')-%>
+    <section class="content-main">
+        <div class="content-header">
+            <h2 class="content-title">Customer list</h2>
+            <div>
+                <a href="admin/createuser" class="btn btn-primary"><i class="material-icons md-plus"></i> Create new</a>
+            </div>
+        </div>
+        <div class="card mb-4">
+            <header class="card-header">
+                <div class="row gx-3">
+                    <div class="col-lg-4 col-md-6 me-auto">
+                        <input type="text" placeholder="Search..." class="form-control">
+                    </div>
+
+
+                </div>
+            </header> <!-- card-header end// -->
+            <div class="card-body">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th> </th>
+                                <th>FullName</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                                <th>Update</th>
+                                <th>Block</th>
+
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                        <tbody>
+                            <% for(var i=0;i < user.length;i++ ){%>
+
+
+                                <tr>
+                                    <td>
+                                        <%=i+1 %>
+                                    </td>
+                                    <td>
+                                        <%=user[i].fullname%>
+                                    </td>
+                                    <td>
+                                        <%=user[i].email%>
+                                    </td>
+                                    <td>
+                                        <%if(user.isBlock==0){%>
+                                            active
+                                            <%}%>
+                                    </td>
+
+                                    <td><a href="/admin/updatecustomer?id=<%=user[i]._id %>"><i
+                                                class="material-icons md-edit"></i></a></td>
+                                    <td>
+                                        <!-- <a href="/admin/block?userid=<%= user[i]._id %>&isBlock=<%= user[i].isBlock %>"
+                                                       class="btn btn-primary"> -->
+                                        <%if (user[i].isBlock===0) {%>
+                                            <p onclick="handleUseraction('<%= user[i]._id%>',1)"
+                                                class="btn btn-sm btn-brand rounded font-sm mt-15"
+                                                style="background-color: red;" id="btnAction">Block</p>
+                                            <%}else{%>
+                                                <p onclick="handleUseraction('<%= user[i]._id%>',0)"
+                                                    class="btn btn-sm btn-brand rounded font-sm mt-15"
+                                                    style="background-color: green;">Unblock</p>
+                                                <%}%>
+
+                                                    </a>
+                                    </td>
+
+
+                                </tr>
+
+                                <%} %>
+                        </tbody>
+
+                    </table> <!-- table-responsive.// -->
+                </div>
+            </div> <!-- card-body end// -->
+        </div> <!-- card end// -->
+
+    </section> <!-- content-main end// -->
+
+    <!-- jQuery 3.6.0 CDN -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+    <% if (locals.title) { %>
+        <script>
+            Swal.fire({
+                icon: 'info',
+                title: '<%=title%>',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        </script>
+        <% } %>
+            <script>
+                function handleUseraction(id, value) {
+                    $.ajax({
+                        url: `/admin/block`,
+                        data: {
+                            userid: id,
+                            isvalue: value
+                        },
+                        method: "patch",
+                        success: async (response) => {
+                            window.location.reload()
+                        }
+                    })
+                }
+            </script>
+            <!-- <script>
+        $(document).ready(function() {
+        $('.block-toggle').click(function(e) {
+            e.preventDefault();
+            var userId = $(this).data('userid');
+            var isBlock = $(this).data('isBlock');
+            
+            $.ajax({
+                url: '/admin/block', // Change this to your server route
+                method: 'POST', // You can also use 'GET' if you prefer
+                data: { userId: userId, isBlock: isBlock },
+                success: function(response) {
+                    if (response.success) {
+                        // Toggle the isBlock value
+                        var newIsBlock = !isBlock;
+                        $(e.target).data('isBlock', newIsBlock);
+                        
+                        // Update button text
+                        $(e.target).text(newIsBlock ? 'Unblock' : 'Block');
+                    }
+                },
+                error: function(error) {
+                    console.error('Error toggling block status:', error);
+                }
+            });
+        });
+    }); -->
+            </script>
+            <%-include('../partials/adminfooterr')-%>

@@ -1,0 +1,97 @@
+<%-include('../partials/adminHeader')-%>
+<section class="content-main">
+<div class="content-header">
+    <div>
+        <h2 class="content-title card-title">Brand</h2>
+        <p>Add, edit or delete a brand</p>
+    </div>
+    
+</div>
+<div class="card">
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3">
+                <form action="/admin/addbrand" method="post">
+                    <div class="mb-4">
+                        <label for="product_name" class="form-label">Add New Brand</label>
+                        <input type="text" placeholder="Type here" class="form-control" id="product_name"
+                            name="addbrand" required>
+                    </div>
+                    <div class="mb-4">
+                        <label for="product_name" class="form-label">Color</label>
+                        <input type="text" placeholder="Type here" class="form-control" id="product_name"
+                            name="color" required>
+                    </div>
+                    <div class="d-grid">
+                        <button class="btn btn-primary" id="submit">New Brand</button>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-9">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+    
+    
+                                <th>Brand Name</th>
+                                <th>Color</th>
+                                <th>Edit</th>
+                                <th>Delete</th>
+    
+    
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <%brand.forEach(function(brand) { %>
+                                <td class="col-lg-4 col-sm-2 col-4 col-status"><b>
+                                        <%=brand.brand%>
+                                    </b>
+                                </td>
+                                <td class="col-lg-4 col-sm-2 col-4 col-status">
+                                    <%=brand.color%>
+                                </td>
+                                <td> <a href="/admin/updatebrand?brandid=<%=brand._id %>"
+                                        class="btn btn-sm font-sm rounded btn-brand">
+                                        <i class="material-icons md-edit"></i>
+                                    </a>
+                                </td>
+                                <td> <a href="/admin/deletebrand?id=<%=brand._id %>"
+                                        class="btn btn-sm font-sm rounded btn-brand">
+                                        <i class="material-icons md-delete_forever"></i>
+                                    </a>
+                                </td>
+                                <!-- dropdown //end -->
+                                </td>
+                                </tr>
+
+                                <%});%>
+                        </tbody>
+                        </table>
+                        </div>
+                        </div>
+        </div>
+    </div>
+    
+</div>
+</section>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+  
+
+    <% if (locals.title) { %>
+        <script>
+          Swal.fire({
+            icon: 'info',
+            title: '<%=title%>',
+            showConfirmButton: false,
+            timer: 10000
+          }); 
+        </script>
+      <% } %>
+
+
+<%-include('../partials/adminfooterr')-%>

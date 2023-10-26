@@ -1,0 +1,870 @@
+<%-include("../partials/userheader")-%>
+
+	<main class="main">
+		<div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+			<div class="container">
+
+				<h1 class="page-title">My Account</h1>
+			</div><!-- End .container -->
+		</div><!-- End .page-header -->
+		<nav aria-label="breadcrumb" class="breadcrumb-nav mb-2">
+			<div class="container">
+
+				<ol class="breadcrumb">
+
+					<li class="breadcrumb-item"><a href="index.html">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Shop</a></li>
+					<li class="breadcrumb-item active" aria-current="page">My Account</li>
+				</ol>
+			</div><!-- End .container -->
+		</nav><!-- End .breadcrumb-nav -->
+
+		<div class="page-content">
+			<div class="dashboard">
+				<!-- <div class=""> -->
+					<div class="row">
+
+
+						<aside class="col-sm-2" style=" text-align: center;">
+
+
+							<ul class="nav nav-dashboard flex-column mb-3 mb-md-0" role="tablist">
+
+								<!-- dashboard -->
+								<li class="nav-item">
+									<a class="otherButton nav-link active" id="tab-dashboard-link" data-toggle="tab"
+										href="#tab-dashboard" role="tab" aria-controls="tab-dashboard"
+										aria-selected="true">Dashboard</a>
+								</li>
+
+								<!-- Orders -->
+								<li class="nav-item">
+									<a class=" otherButton nav-link" id="tab-orders-link" data-toggle="tab"
+										href="#tab-orders" role="tab" aria-controls="tab-orders"
+										aria-selected="false">Orders</a>
+								</li>
+
+								<!-- my Cart -->
+								<li class="nav-item">
+									<a class="otherButton nav-link" id="tab-downloads-link" data-toggle="tab"
+										href="#tab-downloads" role="tab" aria-controls="tab-downloads"
+										aria-selected="false">My Cart</a>
+								</li>
+
+								<!-- My Wishlist -->
+								<li class="nav-item">
+									<a class="otherButton nav-link" id="tab-wishlist-link" data-toggle="tab"
+										href="#tab-wishlist" role="tab" aria-controls="tab-wishlist"
+										aria-selected="false">My wishlist</a>
+								</li>
+
+								<!-- Address -->
+								<li class="nav-item">
+									<a class="otherButton nav-link" id="tab-address-link" data-toggle="tab"
+										href="#tab-address" role="tab" aria-controls="tab-address"
+										aria-selected="false">Addresses</a>
+								</li>
+								<!-- add new address -->
+
+								<li class="nav-item">
+									<a class="otherButton nav-link" id="tab-newaddress-link" data-toggle="tab"
+										href="#tab-newaddress" role="tab" aria-controls="tab-address"
+										aria-selected="false">Add Address</a>
+								</li>
+
+								<!-- Account Details -->
+								<li class="nav-item">
+									<a class="otherButton nav-link" id="tab-account-link" data-toggle="tab"
+										href="#tab-account" role="tab" aria-controls="tab-account"
+										aria-selected="false">Account Details</a>
+								</li>
+
+								<!-- WALLET -->
+								<li class="nav-item">
+									<a class="nav-link" id="tab-orders-link" href="/wallet" role="tab" aria-controls="tab-orders" aria-selected="false">wallet</a>
+								</li>
+
+								<!-- Signout -->
+								<li class="nav-item">
+									<a class="nav-link" href="/logout">Sign Out</a>
+								</li>
+
+							</ul>
+
+
+
+
+							<!-- ------------------------------------------------ASIDE TAB-------------------------------------------------------->
+						</aside><!-- End .col-lg-3 -->
+
+						<div class="col-md-8 col-lg-9">
+							<div class="tab-content">
+
+
+								<!-- -------------------------------------------------DASHBOARD TAB--------------------------------------------------->
+								<div class="tab-pane fade show active" id="tab-dashboard" role="tabpanel"
+									aria-labelledby="tab-dashboard-link">
+									<p>Hello <span class="font-weight-bold text-dark">
+											<%=user.fullname%>
+										</span>
+										<br>
+										From your account dashboard you can view your <a href="#tab-orders"
+											class="tab-trigger-link link-underline">recent orders</a>, manage your <a
+											href="#tab-address" class="tab-trigger-link">shipping and billing
+											addresses</a>, and <a href="#tab-account" class="tab-trigger-link">edit your
+											password and account details</a>.
+									</p>
+
+									<div style="display: flex; position: absolute; top: 400px;">
+										<p>Refer Your Friend using this code&emsp;&emsp; </p>
+										<p style="font-style: oblique;
+										 font-weight: 500;
+										  font-family:system-ui, 
+										  -apple-system,
+										   BlinkMacSystemFont, 
+										   'Segoe UI', Roboto,
+										    Oxygen, Ubuntu,
+											 Cantarell, 
+											 'Open Sans',
+											  'Helvetica Neue', 
+											  sans-serif;">
+
+										</p>
+
+									</div>
+								</div><!-- .End .tab-pane -->
+
+								<!-- -------------------------------------------------ORDER TAB-------------------------------------------------------->
+
+
+								<div class="tab-pane fade" id="tab-orders" role="tabpanel"
+									aria-labelledby="tab-orders-link">
+
+									<% if (order) { %>
+										<div class="table-responsive">
+											<table class="table table-hover myTable">
+												<thead>
+													<tr>
+													
+
+														<!-- <th>Quantity</th>  -->
+														<th>OrderId</th>
+														<th>Total</th>
+														<th>Date</th>
+														<th>Status</th>
+														
+													</tr>
+												</thead>
+
+												<%order.reverse().forEach(function(orders) { %>
+													
+
+												<tbody>
+
+												
+
+														<tr>
+
+															
+															<td> <%= orders?._id %>  </td>
+
+                                                            <td>₹<%=orders?.totalAmount%>.00</td>														
+															
+															<td><span>
+																	<%= new Date(orders?.orderDate).toLocaleDateString()%>
+																</span></td>
+																
+																<td>
+																	<a href="/orderdetails?id=<%=orders?._id%>" class="btn btn-md ">Detail</a></td>
+
+
+															
+
+														</tr>
+
+														
+												</tbody>
+												<% }) %>
+												
+											</table>
+
+										</div>
+										<% } else { %>
+											<p>No Orders yet</p>
+											<%}%>
+								</div>
+								<!-- .End .tab-pane -->
+
+
+								<!-- -------------------------------------------------CART TAB--------------------------------------------------------->
+								<div class="tab-pane fade" id="tab-downloads" role="tabpanel"
+									aria-labelledby="tab-downloads-link">
+									<% if (cart && cart.product.length> 0) { %>
+										<div class="cart">
+											<div class="container">
+												<div class="row">
+													<div class="col-lg-7" style="background-color: #f6f4f4;">
+														<table id="myTable" class="table table-cart table-mobile">
+															<thead>
+																<tr>
+																	<th>Product</th>
+																	<th>Price</th>
+																	<th>Quantity</th>
+																	<th>Total</th>
+																	<th></th>
+																</tr>
+															</thead>
+
+															<tbody>
+																<% for (var i=0; i < cart.product.length; i++) { %>
+																	<tr>
+																		<td class="product-col">
+																			<div class="product">
+																				<figure class="product-media">
+																					<a href="#">
+																						<img src="upload/<%= cart.product[i].product_id.image[0] %>"
+																							alt="Product image">
+																					</a>
+																				</figure>
+																				<h3 class="product-title">
+																					<a href="#">
+																						<%= cart.product[i].product_id.name
+																							%>
+																					</a>
+																				</h3>
+																			</div>
+																		</td>
+																		<td class="price-col price">&#8377;<%=
+																				cart.product[i].product_id.price %>
+																		</td>
+																		<td class="quantity-col">
+																			<div class="cart-product-quantity">
+																				<div class="row"
+																					style="border: 1px solid #222;width:84px">
+																					<button class="minus value-button"
+																						style="border: 0; ">-</button>
+																					<input type="text"
+																						data-id="<%= cart.product[i].product_id._id %>"
+																						class="qty"
+																						style="width: 40px; border: 0;text-align: center;"
+																						value="<%= cart.product[i].quantity %>">
+																					<button class="plus value-button"
+																						style="border: 0;">+</button>
+																				</div>
+																			</div>
+																		</td>
+																		<td class="total-col amount">
+																			₹<%= cart.product[i].product_id.price *
+																				cart.product[i].quantity %>.00
+																		</td>
+																		<td class="remove-col">
+																			<button data-cartid="<%= cart._id %>"
+																				data-id="<%= cart.product[i].product_id._id %>"
+																				class="removebtn btn-remove"><i
+																					class="icon-close"></i></button>
+																		</td>
+																	</tr>
+																	<% } %>
+															</tbody>
+														</table>
+													</div>
+													<aside class="col-lg-3">
+														<div class="summary summary-cart">
+															<h3 class="summary-title">Cart Total</h3>
+															<!-- End .summary-title -->
+
+															<table id="protable" class="table table-summary">
+																<tbody>
+
+																	<tr class="summary-subtotal subtotal">
+																		<td>Subtotal:</td>
+																		<td class="total"></td>
+																	</tr><!-- End .summary-subtotal -->
+																	<tr class="summary-shipping">
+																		<td>Shipping:</td>
+																		<td>&nbsp;</td>
+																	</tr>
+
+																	<tr class="summary-shipping-row">
+																		<td>
+																			<div class="custom-control custom-radio">
+																				<input type="radio" id="free-shipping"
+																					name="shipping"
+																					class="custom-control-input">
+																				<label class="custom-control-label"
+																					for="free-shipping">Free
+																					Shipping</label>
+																			</div>
+																			<!-- End .custom-control -->
+																		</td>
+																		<td>₹0.00</td>
+																	</tr>
+																	<!-- End .summary-shipping-row -->
+
+																	<tr class="summary-shipping-row">
+																		<td>
+																			<div class="custom-control custom-radio">
+																				<input type="radio"
+																					id="standart-shipping"
+																					name="shipping"
+																					class="custom-control-input">
+																				<label class="custom-control-label"
+																					for="standart-shipping">Standart:</label>
+																			</div>
+																			<!-- End .custom-control -->
+																		</td>
+																		<td>₹0.00</td>
+																	</tr>
+																	<!-- End .summary-shipping-row -->
+
+																	<tr class="summary-shipping-row">
+																		<td>
+																			<div class="custom-control custom-radio">
+																				<input type="radio"
+																					id="express-shipping"
+																					name="shipping"
+																					class="custom-control-input">
+																				<label class="custom-control-label"
+																					for="express-shipping">Express:</label>
+																			</div>
+																			<!-- End .custom-control -->
+																		</td>
+																		<td>₹0.00</td>
+																	</tr>
+																	<!-- End .summary-shipping-row -->
+
+																	<tr class="summary-shipping-estimate">
+																		<td>Estimate for Your
+																			Country<br> <a href="#">Change
+																				address</a></td>
+																		<td>&nbsp;</td>
+																	</tr>
+																	<!-- End .summary-shipping-estimate -->
+
+																	<tr class="summary-total subtotal">
+																		<td>Total:</td>
+																		<td class="total"></td>
+																	</tr><!-- End .summary-total -->
+																</tbody>
+															</table><!-- End .table table-summary -->
+
+															<a href="/checkout"
+																class="btn btn-outline-primary-2 btn-order btn-block">PROCEED
+																TO CHECKOUT</a>
+														</div><!-- End .summary -->
+
+														<a href="category.html"
+															class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE
+																SHOPPING</span><i class="icon-refresh"></i></a>
+													</aside><!-- End .col-lg-3 -->
+												</div>
+											</div>
+										</div>
+										<% } else { %>
+											<!-- Cart is empty -->
+											<p>Cart is empty</p>
+											<a href="/category" class="btn btn-outline-primary-2"><span>GO
+													shopping</span><i class="icon-long-arrow-right"></i></a>
+											<% } %>
+								</div><!-- End of cart .tab-pane -->
+
+
+								<!-- -------------------------------------------------WISHLIST TAB--------------------------------------------------------->
+
+								<div class="tab-pane fade" id="tab-wishlist" role="tabpanel"
+									aria-labelledby="tab-wishlist-link">
+
+									<%if(wishlist){%>
+										<div class="cart">
+											<div class="container">
+												<div class="row">
+
+													<div class="col-lg-9">
+
+														<table class="table table-cart table-mobile">
+															<thead>
+																<tr>
+																	<th>Product</th>
+																	<th>Price</th>
+																	<th></th>
+																	<th></th>
+																	<th></th>
+																</tr>
+															</thead>
+
+															<tbody>
+																<% for (var i=0; i < wishlist.product.length; i++ ) { %>
+
+																	<tr>
+																		<td class="product-col">
+																			<div class="product">
+																				<figure class="product-media">
+																					<a href="">
+																						<img src="upload/<%=wishlist.product[i]?.image[0]%>"
+																							alt="Product image">
+																					</a>
+																				</figure>
+
+																				<h3 class="product-title">
+																					<a
+																						href="/productview?productid=<%=wishlist?.product[i]?._id%>">
+																						<%=wishlist?.product[i]?.name%>
+																					</a>
+																				</h3><!-- End .product-title -->
+																			</div><!-- End .product -->
+																		</td>
+																		<td class="price-col">&#8377;
+																			<%=wishlist?.product[i]?.price%>
+																		</td>
+																		<td class="quantity-col">
+																			<div class="cart-product-quantity">
+																				<!-- <input type="button" class="quantity"
+																					style="width: 40px; border: 0;"
+																					value="1"> -->
+																			</div><!-- End .cart-product-quantity -->
+																		</td>
+																		<td class="total-col">&#8377;
+																			<%=wishlist.product[i].price%>
+																		</td>
+																		<td class="remove-col"><button
+																				data-wishlistid="<%= wishlist._id %>"
+																				data-id="<%=wishlist.product[i]._id %>"
+																				class="wishlistRemoveBtn btn-remove"><i
+																					class="icon-close"></i></button>
+																		</td>
+																	</tr>
+																	<% } %>
+
+																		<%}else{%>
+
+																			<p>Your wishlist is empty</p>
+																			<p>Add your favourite item to your wishlist,
+																				So that you can but it later</p>
+																			<a href="/category"
+																				class="btn btn-outline-primary-2"><span>GO
+																					shopping</span><i
+																					class="icon-long-arrow-right"></i></a>
+
+																			<%} %>
+
+															</tbody>
+														</table><!-- End .table table-wishlist -->
+														<div class="cart-bottom">
+
+															<!-- <a href="/cart"
+																class="btn btn-outline-dark-2"><span>CONTINUE TO
+																	CHECKOUT</span><i class="icon-refresh"></i></a> -->
+														</div><!-- End .cart-bottom -->
+													</div><!-- End .col-lg-9 -->
+
+
+												</div>
+											</div>
+										</div>
+								</div><!-- .End .tab-pane -->
+
+
+								<!-- -------------------------------------------------ADDRERSS TAB--------------------------------------------------------->
+								<div class="tab-pane fade" id="tab-address" role="tabpanel" aria-labelledby="tab-address-link">
+									<div class="row">
+										<% if (user.address && user.address.length > 0) { %>
+											<!-- User has addresses -->
+											<% for (var i = 0; i < user.address.length; i++) { %>
+												<div class="col-lg-6">
+													<div class="card card-dashboard">
+														<div class="card-body">
+															<!-- Display user's addresses -->
+															<button type="button" class="deleteaddress btn align-items delete-button"
+																data-id="<%= user.address[i]._id %>">
+																<i class="fas fa-trash"></i>
+															</button>
+															<h3 class="card-title">Billing Address (<%= i + 1 %>)</h3>
+															<!-- Display address details here -->
+															<p>
+																<%= user.address[i].fullname %><br>
+																<%= user.address[i].houseno %><br>
+																<%= user.address[i].state %><br>
+																<%= user.address[i].street %><br>
+																<%= user.address[i].pincode %><br>
+																<%= user.address[i].phone %><br>
+																<%= user.address[i].email %><br>
+															</p>
+															<button type="button" class="nav-link btn btn-outline-primary-2" 
+																data-toggle="modal" data-target="#editModal<%= i %>" data-whatever="@fat">
+																<span>Edit</span>
+																<i class="icon-edit"></i>
+															</button>
+								
+															<div class="modal fade" id="editModal<%= i %>" tabindex="-1" role="dialog" 
+																aria-labelledby="exampleModalLabel" aria-hidden="true">
+																<div class="modal-dialog" role="document">
+																	<div class="modal-content">
+																		<div class="modal-header">
+																			<h5 class="modal-title"
+																				id="exampleModalLabel">
+																				Edit
+																				Page
+																			</h5>
+																			<button type="button" class="close"
+																				data-dismiss="modal" aria-label="Close">
+																				<span aria-hidden="true">&times;</span>
+																			</button>
+																		</div>
+																		<div class="modal-body">
+																			
+																			<form>
+								
+																				<div class="row" style="margin:10px;">
+																					<div class="col-sm-6">
+														
+																						<label
+																							for="Fullname">Fullname</label>
+																						<input type="text"
+																							class="form-control"
+																							name="fullname"
+																							value="<%=user.address[i].fullname %>"
+																							id="editname" required>
+																						<div id="editname_1"
+																							style="color:red;">
+																						</div>
+								
+																					</div>
+								
+																					<div class="col-sm-6">
+																						<label for="House"
+																							class="col-form-label">House
+																							Name/no</label>
+																						<input type="text"
+																							class="form-control"
+																							id="edithouse"
+																							name="houseno"
+																							value="<%=user.address[i].houseno%>"
+																							required>
+																						<div id="edithouse_2"
+																							style="color:red;">
+																						</div>
+																					</div>
+																				</div>
+																				<div class="row" style="margin:10px;">
+																					<div class="col-sm-6">
+																						<label for="Street"
+																							class="col-form-label">Street</label>
+																						<input type="text"
+																							class="form-control"
+																							name="street"
+																							value="<%=user.address[i].street%>"
+																							id="editstreet" required>
+																						<div id="editstreet_3"
+																							style="color:red;">
+																						</div>
+																						<input type="text"
+																							name="addressid"
+																							id="editaddressid"
+																							value="<%=user.address[i]._id%>"
+																							class="form-control" hidden>
+																					</div>
+																					<div class="col-sm-6">
+																						<label for="State"
+																							class="col-form-label">State</label>
+																						<input type="text"
+																							class="form-control"
+																							id="editstate" name="state"
+																							value="<%=user.address[i].state%>"
+																							required>
+																						<div id="editstate"
+																							style="color:red;">
+																						</div>
+																					</div>
+																				</div>
+																				<div class="row" style="margin:10px;">
+																					<div class="col-sm-6">
+																						<label for="Pincode"
+																							class="col-form-label">Pincode</label>
+																						<input type="text"
+																							class="form-control"
+																							name="pincode"
+																							id="editpincode"
+																							value="<%=user.address[i].pincode%>"
+																							required>
+																						<div id="editpincode_4"
+																							style="color:red;">
+																						</div>
+																					</div>
+																					<div class="col-sm-6">
+																						<label for="Phone"
+																							class="col-form-label">Phone</label>
+																						<input type="text"
+																							class="form-control"
+																							id="editphone" name="phone"
+																							value="<%=user.address[i].phone%>"
+																							required>
+																						<div id="editphone_5"
+																							style="color:red;">
+																						</div>
+																					</div>
+																				</div>
+								
+								                         </form>
+																		</div>
+																		<div class="modal-footer">
+								
+																			<button type="button"
+																				class="btn btn-outline-primary-2"
+																				id="savebtn">Save</button>
+																			</form>
+																		</div>
+																	</div>
+																</div>
+															</div>
+														</div><!-- End .card-body -->
+													</div><!-- End .card-dashboard -->
+												</div><!-- End .col-lg-4 -->
+											<% } %>
+										<% } else { %>
+											<!-- User does not have addresses -->
+											<div class="col-lg-6">
+												<div class="card card-dashboard">
+													<div class="card-body">
+														<h3 class="card-title">Billing Address</h3>
+														<a href="#tab-newaddress" data-toggle="tab" id="addAddress" role="tab"
+															aria-controls="tab-address" aria-selected="false">
+															<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+																class="bi bi-plus-lg" viewBox="0 0 16 16">
+																<path fill-rule="evenodd"
+																	d="M8 2a.5.5 0 0 1 .5.5v5h5a.5.5 0 0 1 0 1h-5v5a.5.5 0 0 1-1 0v-5h-5a.5.5 0 0 1 0-1h5v-5A.5.5 0 0 1 8 2Z" />
+															</svg>
+														</a>
+														<!-- End of adding a new address form -->
+													</div><!-- End .card-body -->
+												</div><!-- End .card-dashboard -->
+											</div><!-- End .col-lg-6 -->
+										<% } %>
+									</div><!-- End .row -->
+								</div><!-- .End .tab-pane -->
+
+
+								<!-- -------------------------------------------------USER ACCOUNT DETAILS TAB--------------------------------------------------------->
+								<div class="tab-pane fade" id="tab-account" role="tabpanel"
+									aria-labelledby="tab-account-link">
+									<form action="#">
+										<div class="row">
+
+										</div><!-- End .row -->
+
+										<label>Name</label>
+										<input type="text" value="<%=user.fullname%>" name="name" id="displayname"
+											class="form-control" required readonly>
+										<small class="form-text">This will be how your name will be displayed in the
+											account section and in reviews</small>
+										<div class="row">
+											<div class="col-sm-6">
+												<label>Email address *</label>
+												<input type="email" value="<%=user.email%>" name="email" id="email"
+													class="form-control" required readonly>
+											</div>
+											<div class="col-sm-6">
+												<label>Phone Number</label>
+												<input type="text" value="<%=user.phone%>" name="phone" id="phone"
+													class="form-control" required readonly>
+											</div>
+										</div>
+										<div class="user-account">
+											<div class="row">
+
+												<div class="col-sm-6">
+													<label>Full Name</label>
+													<!-- first name --> <input type="text" name="fullName"
+														id="addressname" value="<%=user?.address[0]?.fullname%>"
+														class="form-control" required>
+												</div><!-- End .col-sm-6 -->
+
+												<div class="col-sm-6">
+													<label>house No/Name</label>
+													<input type="text" name="house" id="house"
+														value="<%=user?.address[0]?.houseno%>" class="form-control"
+														required>
+												</div><!-- End .col-sm-6 -->
+
+											</div>
+											<div class="row">
+
+												<div class="col-sm-6">
+													<label>Street</label>
+													<input type="text" value="<%=user?.address[0]?.street%>"
+														name="street" id="street" class="form-control" required>
+												</div><!-- End .col-sm-6 -->
+
+												<div class="col-sm-6">
+													<label>State</label>
+													<input type="text" value="<%=user?.address[0]?.state%>" name="state"
+														id="state" class="form-control" required>
+												</div><!-- End .col-sm-6 -->
+
+											</div>
+											<div class="row">
+
+												<div class="col-sm-6">
+													<label>Pincode</label>
+													<input type="text" name="pincode" id="pincode"
+														value="<%=user?.address[0]?.pincode%>" class="form-control"
+														required>
+
+													<input type="text" name="addressid" id="addressid"
+														value="<%=user?.address._id%>" class="form-control" hidden>
+
+												</div><!-- End .col-sm-6 -->
+
+												<div class="col-sm-6">
+													<label>Phone</label>
+													<input type="text" name="phone" id="phone"
+														value="<%=user?.address[0]?.phone%>" class="form-control"
+														required>
+												</div><!-- End .col-sm-6 -->
+
+
+												<div class="col-sm-6">
+													<button type="submit" class="updatebtn btn btn-outline-primary-2">
+														<span>SAVE CHANGES</span>
+														<i class="icon-long-arrow-right"></i>
+													</button>
+												</div>
+
+
+											</div>
+
+									</form>
+								</div>
+							</div><!-- .End .tab-pane -->
+
+
+
+							<!-- -------------------------------------------------UPDATE ADDRESS TAB--------------------------------------------------------->
+
+							<div class="tab-pane fade" id="tab-newaddress" role="tabpanel"
+								aria-labelledby="tab-newaddress-link">
+
+								<form action="#">
+
+									<div class="row">
+
+										<div class="col-sm-6">
+											<label>Full Name</label>
+											<!-- add address -->
+											<input type="text" name="fullName" id="fullname" class="form-control"
+												required>
+											<div id="text1" style="color:red;"></div>
+										</div><!-- End .col-sm-6 -->
+
+
+										<div class="col-sm-6">
+											<label>house No/Name</label>
+											<input type="text" name="house" id="addresshouse" class="form-control"
+												required>
+											<div id="text2" style="color:red;"></div>
+										</div><!-- End .col-sm-6 -->
+
+									</div>
+									<div class="row">
+
+										<div class="col-sm-6">
+											<label>Street</label>
+											<input type="text" name="street" id="adresstreet" class="form-control"
+												required>
+											<div id="text3" style="color:red;"></div>
+										</div><!-- End .col-sm-6 -->
+
+										<div class="col-sm-6">
+											<label>State</label>
+											<input type="text" name="state" id="adresstate" class="form-control"
+												required>
+											<div id="text4" style="color:red;"></div>
+										</div><!-- End .col-sm-6 -->
+
+									</div>
+									<div class="row">
+
+										<div class="col-sm-6">
+											<label>Pincode</label>
+											<input type="text" name="pincode" id="adresspin" class="form-control"
+												required>
+											<div id="text5" style="color:red;"></div>
+
+										</div><!-- End .col-sm-6 -->
+
+										<div class="col-sm-6">
+											<label>Phone</label>
+											<input type="text" name="phone" id="adressphone" class="form-control"
+												required>
+											<div id="text6" style="color:red;"></div>
+										</div><!-- End .col-sm-6 -->
+
+									</div>
+									<div class="row">
+										<div class="col-sm-6">
+											<label>Email</label>
+											<input type="text" name="email" id="adressemail" class="form-control"
+												required>
+											<div id="text7" style="color:red;"></div>
+										</div><!-- End .col-sm-6 -->
+									</div>
+
+									<button type="submit" class="AddAdressbtn btn btn-outline-primary-2">
+										<span>ADD ADDRESS</span>
+										<i class="icon-long-arrow-right"></i>
+									</button>
+								</form>
+							</div><!-- .End .tab-pane -->
+
+
+
+
+							<!-- -------------------------------------------------WALLET TAB--------------------------------------------------------->
+							
+							
+							<!-- .End .tab-pane -->
+
+
+
+						</div>
+					</div><!-- End .col-lg-9 -->
+				<!-- </div>End .row -->
+			</div><!-- End .container -->
+         
+		</div><!-- End .dashboard -->
+
+	</main><!-- End .main -->
+
+
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+
+	<script src="https://code.jquery.com/jquery-3.7.0.min.js"
+		integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.7.12/dist/sweetalert2.all.min.js "></script>
+
+
+	<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+
+	<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+
+	<!-- toastr -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+	<link href="path/to/toastr.css" rel="stylesheet">
+	<script src="path/to/toastr.js"></script>
+	<link rel="stylesheet" href="path/to/toastr.min.css">
+	<script src="path/to/toastr.min.js"></script>
+	<!-- Script Files -->
+	<script src="Js/dashboardscript.js"></script>
+	<!-- POPUP SCRIPT -->
+	<% if (locals.title) { %>
+		<script>
+			Swal.fire({
+				icon: 'info',
+				title: '<%=title%>',
+				showConfirmButton: false,
+				timer: 10000
+			}); 
+		</script>
+		<% } %>
+			<%-include("../partials/userfooter")-%>

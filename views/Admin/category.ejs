@@ -1,0 +1,82 @@
+<%-include('../partials/adminHeader')-%>
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Categories</h2>
+                <p>Add, edit or delete a category</p>
+            </div>
+            <div>
+                <input type="text" placeholder="Search Categories" class="form-control bg-white">
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-3">
+                        <form action="/admin/categories" method="post">
+                            <div class="mb-4">
+                                <label for="product_name" class="form-label">Name</label>
+                                <input type="text" placeholder="Type here" class="form-control" id="product_name"
+                                    name="name" required>
+                            </div>
+
+
+                            <div class="mb-4">
+                                <label class="form-label">Description</label>
+                                <textarea placeholder="Type here" class="form-control" name="description"
+                                    required></textarea>
+                            </div>
+                            <div class="d-grid">
+                                <button class="btn btn-primary" id="submit">Create category</button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-9">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+
+
+                                        <th>Name</th>
+                                        <th>Description</th>
+                                        <th>Edit</th>
+                                        <th>Delete</th>
+
+
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <%categorydata.forEach(function(category) { %>
+                                        <td class="col-lg-4 col-sm-2 col-4 col-status"><b>
+                                                <%=category.name%>
+                                            </b>
+                                        </td>
+                                        <td class="col-lg-4 col-sm-2 col-4 col-status">
+                                            <%=category.description%>
+                                        </td>
+                                        <td> <a href="/admin/updatecategory?categoryid=<%=category._id %>"
+                                                class="btn btn-sm font-sm rounded btn-brand">
+                                                <i class="material-icons md-edit"></i>
+                                            </a>
+                                        </td>
+                                        <td> <a href="/admin/deletecategory?id=<%=category._id %>"
+                                                class="btn btn-sm font-sm rounded btn-brand">
+                                                <i class="material-icons md-delete_forever"></i>
+                                            </a>
+                                        </td>
+                                        <!-- dropdown //end -->
+                                        </td>
+                                        </tr>
+
+                                        <%});%>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div> <!-- .col// -->
+                </div> <!-- .row // -->
+            </div> <!-- card body .// -->
+        </div> <!-- card .// -->
+        
+    </section> <!-- content-main end// -->
+    <%-include('../partials/adminfooterr')-%>

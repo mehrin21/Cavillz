@@ -1,0 +1,48 @@
+<%-include('../partials/adminHeader')-%>
+    <section class="content-main">
+        <form action="/admin/updatecustomer?id=<%=userdata._id%>" method="post">
+           
+            <div class="row">
+                <div class="col-9">
+                    
+                </div>
+                <div class="card mx-auto card-login">
+                    <div class="card-body">
+                        <h4 class="card-title mb-4">Update User Account</h4>
+                       
+                            <div class="mb-3">
+                                <input type="hidden" id="userId" value="<%=userdata._id%>">
+                                <label class="form-label">Fullname</label>
+                                <input class="form-control" value="<%=userdata.fullname%>" name="fullname" type="text">
+                            </div> <!-- form-group// -->
+                            <div class="mb-3">
+                                <label class="form-label">Email</label>
+                                <input class="form-control" value="<%=userdata.email%>" name="email" type="text">
+                                
+                            </div> <!-- form-group// -->
+                            <!-- <div class="mb-3">
+                                <label class="form-label">Password</label>
+                                <input class="form-control" value="<%=userdata.password%>"name="password" >
+                            </div> form-group// -->
+                            
+                            <div class="mb-4">
+                                <button type="submit" class="btn btn-primary w-100">Update</button>
+                            </div> <!-- form-group// -->
+                        
+                            
+                    </div>
+                </div>
+        </form>
+    </section> <!-- content-main end// -->
+    <% if (locals.message) { %>
+        <script>
+          Swal.fire({
+            icon: 'info',
+            title: '<%=message%>',
+            showConfirmButton: false,
+            timer: 10000
+          }); 
+        </script>
+      <% } %>
+    <%-include('../partials/adminfooterr')-%>
+    

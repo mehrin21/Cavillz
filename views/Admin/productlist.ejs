@@ -1,0 +1,110 @@
+<%-include('../partials/adminHeader')-%>
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Products</h2>
+            <p></p>
+        </div>
+        <div>
+            
+            <a href="/admin/addproduct" class="btn btn-primary btn-sm rounded">Create new</a>
+        </div>
+    </div>
+
+    <div class="card-body">
+        <div class="row gx-3 row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-xl-4 row-cols-xxl-5">
+            <%productlist.forEach(function(product) {%>
+                <div class="col">
+                    <div class="card card-product-grid">
+                        <a href="/admin/imagecrop?productid=<%=product._id%>" class="img-wrap"><img src="upload/<%=product.image[0]%>"
+                                class="img-sm img-thumbnail" alt="Item"> </a>
+                        <div class="info-wrap">
+                            <a href="#" class="title text-truncate">
+                                <%=product.name%>
+                            </a>
+                            <div class="price mb-2">
+                                ₹ <%=product.price%>
+                            </div> <!-- price.// -->
+                            <a href="/admin/updateproduct?productid=<%=product._id %>"
+                                class="btn btn-sm font-sm rounded btn-brand">
+                                <i class="material-icons md-edit"></i>
+                            </a>
+                            <a href="/admin/deleteproduct?id=<%=product._id %>"
+                                class="btn btn-sm font-sm rounded btn-brand">
+                                <i class="material-icons md-delete_forever"></i>
+                            </a>
+                        </div>
+                    </div> <!-- card-product  end// -->
+                </div> <!-- col.// -->
+                <%})%>
+
+
+
+
+
+
+
+
+
+        </div> <!-- card-product  end// -->
+    </div> <!-- col.// -->
+
+
+    </section> <!-- content-main end// -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+
+    <script>
+        $(document).ready(function () {
+
+
+            console.log('button clicked')
+            $(".deleteButton").click(function (e) {
+                e.preventDefault();
+
+                let deleteProduct = $(this).siblings('.deleteId');
+                let deleteProductId = deleteProduct.val()
+                console.log(deleteProductId);
+
+                swal.fire({
+                    title: 'Are you sure want to delete the product?',
+                    text: "This process can't be undone",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Proceed',
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/admin/deleteproduct",
+                            type: "POST",
+                            data: {
+                                id: deleteProductId
+                            },
+                            success: function (data) {
+                                location.reload();
+                            }
+
+                        })
+                    }
+
+
+                })
+            })
+
+            $('.myTable').DataTable();
+
+
+
+
+
+        })
+    </script>
+
+
+
+    <%-include('../partials/adminfooterr')-%>

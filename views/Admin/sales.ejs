@@ -1,0 +1,234 @@
+<%- include('../partials/adminHeader') -%>
+<section class="content-main">
+    <main class="main">
+      <section class="content-main">
+        <div class="content-header">
+          <div>
+            <h2 class="content-title card-title">Sales Report</h2>
+          </div>
+        </div>
+        <div class="card mb-4">
+          <header class="card-header">
+            <!-- Filter options can be added here if needed -->
+            <div style="padding-left: 30px; padding-right: 30px;">
+              <div class="container-fluid">
+                <div class="row">
+                  <div class="col-md-12 d-flex justify-content-end">
+                    <div class="me-2">
+                      <div class="me-2">
+                        <button type="button" id="btn-print-this" class="btn btn-secondary btn-icon bg-dark">
+                          <i class="bi bi-file-earmark-pdf-fill"></i> PDF
+                        </button>
+                        <button type="button" onclick="convertTableToExcel()" class="btn btn-secondary btn-icon bg-dark">
+                          <i class="bi bi-file-earmark-excel-fill"></i> Excel
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </header>
+          <div class="card-body">
+            <div class="filter-section">
+              <label for="from-date">From Date:</label>
+              <input type="date" id="from-date" name="from-date">
+              <label for="to-date">To Date:</label>
+              <input type="date" id="to-date" name="to-date">
+              <button id="filter-btn">Filter</button>
+              <button id="reset-btn">Reset</button>
+            </div>
+            <div class="table-responsive">
+              <table id="order-table" class="table table-hover">
+                <thead>
+                  <tr>
+                    <th>#ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">ProductName</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">MOD</th>
+                    <th scope="col">Total</th>
+                  </tr>
+                </thead>
+                <tbody id="order-table-body">
+                  <% orders.reverse().forEach(function(order){ %>
+                  <% order.product.forEach(function(product) { %>
+                  <% if (product.status === "Delivered") { %>
+                  <tr>
+                    <td><%= product._id.toString().substr(-5) %></td>
+                    <td><b><%= order.userId.fullname %></b></td>
+                    <td><%= product.productId.name %></td>
+                    <td><%= new Date(order.orderDate).toLocaleDateString() %></td>
+                    <td><%= product.status %></td>
+                    <td><%= order.totalAmount %></td>
+                  </tr>
+                  <% } %>
+                  <% }); %>
+                  <% }); %>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
+
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+
+
+  <script>
+    $(document).ready(function() {
+      console.log("btn ofsale")
+      $('#btn-print-this').click(function() {
+        console.log("btn ofsale")
+        const tableHTML = $('.table-responsive').html();
+        const popupWindow = window.open('', '_blank', 'width=600,height=600');
+        popupWindow.document.open();
+        popupWindow.document.write(`
+          <html>
+          <head>
+            <title>Print</title>
+            <style>
+              @media print {
+                body * {
+                  visibility: hidden;
+                }
+                .table-popup, .table-popup * {
+                  visibility: visible;
+                }
+                .table-popup {
+                  position: absolute;
+                  left: 0;
+                  top: 0;
+                  width: 100%;
+                  height: 100%;
+                  overflow: auto;
+                }
+              }
+            </style>
+          </head>
+          <body>
+            <div class="table-popup">
+              ${tableHTML}
+            </div>
+          </body>
+          </html>
+        `);
+        popupWindow.document.close();
+        popupWindow.print();
+      });
+
+      // Select the table and the "Total" column cells
+      const table = $('#order-table');
+      const totalCells = table.find('tbody td:nth-child(6)'); // Assuming "Total" is the 6th column
+
+      // Calculate the sum of the "Total" column
+      let sum = 0;
+      totalCells.each(function() {
+        const value = parseFloat($(this).text());
+
+        // Add the value to the sum if it is a valid number
+        if (!isNaN(value)) {
+          sum += value;
+        }
+      });
+
+      // Add the "Total Sales" row to the table
+      const totalRow = $('<tr>').append('<td colspan="5"><b><span style="font-size: 16px;">Total Sales</span></b></td><td><b><span style="font-size: 16px;">' + sum + '</span></b></td>');
+      table.find('tbody').append(totalRow);
+
+      $('#filter-btn').click(function() {
+        const fromDate = new Date($('#from-date').val());
+        const toDate = new Date($('#to-date').val());
+
+        // Hide all rows initially
+        table.find('tbody tr').hide();
+
+        // Filter rows based on the date range
+        table.find('tbody tr').each(function() {
+          const dateString = $(this).find('td:nth-child(4)').text(); // Assuming "Date" is the 4th column
+          const date = moment(dateString, 'D/M/YYYY').toDate();
+
+          if (date >= fromDate && date <= toDate) {
+            $(this).show();
+          }
+        });
+      });
+
+      $('#reset-btn').click(function() {
+        // Reset the date inputs and show all rows
+        $('#from-date').val('');
+        $('#to-date').val('');
+        table.find('tbody tr').show();
+      });
+    });
+
+    function convertTableToExcel() {
+      // Select the table element
+      const table = document.getElementById('order-table');
+
+      // Prepare data array
+      const data = [];
+
+      // Add table headers to the data array
+      const headers = [];
+      for (let i = 0; i < table.rows[0].cells.length; i++) {
+        headers.push(table.rows[0].cells[i].textContent);
+      }
+      data.push(headers);
+
+      // Iterate through each row of the table (excluding the header row)
+      for (let i = 1; i < table.rows.length; i++) {
+        const row = table.rows[i];
+        const rowData = [];
+
+        // Iterate through each cell of the row
+        for (let j = 0; j < row.cells.length; j++) {
+          rowData.push(row.cells[j].textContent);
+        }
+
+        // Add row data to the data array
+        data.push(rowData);
+      }
+
+      // Create a new workbook
+      const workBook = XLSX.utils.book_new();
+
+      // Create a new worksheet
+      const workSheet = XLSX.utils.aoa_to_sheet(data);
+
+      // Add the worksheet to the workbook
+      XLSX.utils.book_append_sheet(workBook, workSheet, 'Order Data');
+
+      // Convert the workbook to a binary string
+      const excelData = XLSX.write(workBook, { bookType: 'xlsx', type: 'binary' });
+
+      // Save the binary string as a file
+      saveAsExcelFile(excelData, 'orderData.xlsx');
+    }
+
+    function saveAsExcelFile(data, fileName) {
+      const blob = new Blob([s2ab(data)], { type: 'application/octet-stream' });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = fileName;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function s2ab(s) {
+      const buf = new ArrayBuffer(s.length);
+      const view = new Uint8Array(buf);
+      for (let i = 0; i < s.length; i++) view[i] = s.charCodeAt(i) & 0xff;
+      return buf;
+    }
+  </script>
+
+      <%- include('../partials/adminfooterr') -%>
+
+

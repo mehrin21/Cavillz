@@ -1,0 +1,114 @@
+<%-include('../partials/adminHeader')-%>
+<section class="content-main">
+    <div class="content-header">
+        <div>
+            <h2 class="content-title card-title">Coupon Management</h2>
+            <p></p>
+        </div>
+        <div>
+            <a href="/admin/addcoupon"><button class="btn btn-primary btn-sm rounded" type="submit">Create new</button></a>
+        </div>
+    </div>
+    <div class="card mb-4">
+        <div class="col-md-12">
+            <div class="table-responsive">
+                <table class="table table-hover myTable">
+                    <thead>
+                        <tr>
+                            
+                            <th>Coupon Type</th>
+                            <th>Discount</th>
+                            <th>Expiry</th>
+                            <th>Minimum Purchase</th>
+                            <th>Description</th>
+                           
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if (couponlist && couponlist.length > 0) {%>
+                            <%couponlist.forEach(function(coupons) { %>
+                                <tr class="itemlist">
+                                   
+                                    <td> <h6 class="mb-0"> <%=coupons.name%></h6> </td>
+                                    <td> <%=coupons.discount%></td>
+                                    <td> <%=new Date(coupons.expiry).toLocaleDateString()%></td>
+                                    <td><%=coupons.minimum%></td>
+                                    <td><span><%-coupons.description%></span></td>
+                                    <td style="align-items: center;text-align: center;">
+                                            <input type="hidden" value="<%=coupons._id%>" class="deleteId" name="id">
+                                            <button data-value="<%=coupons._id%>" class="deleteButton btn btn-sm font-sm btn-light rounded" type="submit">
+                                                <i class="material-icons md-delete_forever"></i>
+                                            </button>
+                                        </td>
+                                
+                                </tr>
+                            <% })%>
+                        <%} else { %>
+                            <tr>
+                                <td>No Coupons Entered.</td>
+                                <td>Nil</td>
+                                <td>Nil</td>
+                                <td>Nil</td>
+                                <td>Nil</td>
+                                
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <div class="pagination-area mt-30 mb-50">
+        <nav aria-label="Page navigation example"></nav>
+    </div>
+</section>
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<!-- Include jQuery -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- Include DataTables after jQuery -->
+<!-- <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script> -->
+<script>
+   
+       
+        $(".deleteButton").on('click' , function () {
+            
+            console.log("deleted")
+            let deleteProduct = $(this).siblings('.deleteId');
+            let deleteProductId = deleteProduct.val();
+            console.log(deleteProductId);
+            
+
+            swal.fire({
+                title: 'Are you sure want to delete the Coupon?',
+                text: "This process can't be undone",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Proceed',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    $.ajax({
+                        url: "/admin/deletecoupon",
+                        type: "DELETE",
+                        data: {
+                            id: deleteProductId
+                        },
+                        success: function (data) {
+                                location.reload();
+                        }
+                    });
+                }
+            });
+        });
+
+        // $('.myTable').DataTable();
+   
+</script>
+
+<%-include('../partials/adminfooterr')-%>

@@ -1,0 +1,93 @@
+<%- include("../partials/userheader") %>
+
+
+
+
+
+
+    <main class="main">
+        <div class="page-header text-center" style="background-image: url('assets/images/page-header-bg.jpg')">
+            <div class="container">
+                <h1 class="page-title">My Account<span></span></h1>
+            </div><!-- End .container -->
+        </div><!-- End .page-header -->
+        <nav aria-label="breadcrumb" class="breadcrumb-nav mb-3">
+            <div class="container">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
+                    <!-- <li class="breadcrumb-item"><a href="#">Shop</a></li> -->
+                    <li class="breadcrumb-item active" aria-current="page">My Account</li>
+                </ol>
+            </div><!-- End .container -->
+        </nav><!-- End .breadcrumb-nav -->
+
+        <div class="page-content">
+            <div class="dashboard">
+                <div class="container">
+                    <div class="row">
+                      
+                        <div class="col-md-8 col-lg-9">
+                            <div class="tab-content">
+                                <div class="tab-pane fade show active" id="tab-wallet" role="tabpanel"
+							aria-labelledby="tab-wallets-link">
+							<% if (wallet) { %>
+								<div class="page-header text-center"
+									style=" background-color: rgb(71, 173, 76); height: 8em;align-items: center;display: flex; ">
+									<div class="container">
+										<h2 class="page-title pt-2"
+											style="color: white; display: inline-flex; ">Wallet Total: <br> ₹
+											<%=wallet.balance%></span> </h2>
+									</div><!-- End .container -->
+								</div><!-- End .page-header -->
+								<table class="table table-wishlist table-mobile" style="width: 820px;">
+									<thead>
+										<tr>
+											<th>Order ID</th>
+											<th>Date</th>
+											<th>Amount</th>
+										</tr>
+									</thead>
+
+									<% wallet.orderDetails.reverse().forEach(function(order) { %>
+										<tbody>
+											<tr>
+												<td><a href="/orderDetails?id=<%=order.orderid%>">
+														<%=order.orderid%>
+													</a></td>
+												<td class="stock-col">
+													<%=new Date(order.date).toLocaleDateString()%>
+												</td>
+												<td class="price-col">
+													<% if (order.type=="Added" ) { %>
+														<span class="badge text-success">+ ₹<%=order.amount %>
+																.00</span>
+														<%} else { %>
+															<span class="badge text-danger">- ₹<%=order.amount %>
+																	.00</span>
+															<%}%>
+												</td>
+											</tr>
+										</tbody>
+										<% }); %>
+								</table>
+								<% } else { %>
+									<div class="page-header text-center"
+										style=" background-color: rgb(71, 173, 76); height: 8em;align-items: center;display: flex; ">
+										<div class="container">
+											<h2 class="page-title pt-2"
+												style="color: white; display: inline-flex; ">Wallet Total: <br>
+												₹ 0</span> </h2>
+										</div><!-- End .container -->
+									</div><!-- End .page-header -->
+									<%}%>
+						</div><!-- .End .tab-pane -->
+                            </div>
+                        </div><!-- End .col-lg-9 -->
+
+                    </div><!-- End .row -->
+                </div><!-- End .container -->
+            </div><!-- End .dashboard -->
+        </div><!-- End .page-content -->
+    </main><!-- End .main -->
+
+    <%- include('../partials/userfooter') %>

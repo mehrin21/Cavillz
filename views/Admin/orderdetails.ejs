@@ -1,0 +1,353 @@
+<%-include('../partials/adminHeader')-%>
+
+    <section class="content-main">
+        <div class="content-header">
+            <div>
+                <h2 class="content-title card-title">Order Details</h2>
+                <p>Details for Order ID: #XXXXXXXXXXXXXXX<%=orderDetail?._id?.toString().slice(-4)%></p>
+            </div>
+        </div>
+        <div class="card">
+            <header class="card-header">
+                <div class="row align-items-center">
+                    <div class="col-lg-6 col-md-6 mb-lg-0 mb-15">
+                        <span>
+                            <i class="material-icons md-calendar_today"></i>
+                            <b><%- orderDetail?.orderDate?.toLocaleString("en-US", { weekday: 'short' , month: 'short' ,
+                                    day: 'numeric' , year: 'numeric' , hour: 'numeric' , minute: 'numeric' , hour12:
+                                    true }) %>
+                            </b>
+                        </span> <br>
+                        <small class="text-muted">Order ID:
+                            #XXXXXXXXXXXXXXX<%=orderDetail?._id?.toString().slice(-4)%></small>
+                    </div>
+                    <!-- <div class="col-lg-6 col-md-6 ms-auto text-md-end">
+                    <% if(orderDetail?.status=='Return Requested'){ %>
+                        <button class="btn btn-danger" disabled><%=orderDetail?.status%></button>
+                        <a class="btn btn-primary" id="returnapprove" data-id="<%=orderDetail?._id%>" href="#">Approve Return</a>
+                    <%} else if(orderDetail?.status=='Cancelled') {%>
+                        <div class="pe-5">
+                            <button class="btn btn-danger" disabled>ORDER CANCELLED</button>
+                        </div>
+                    <%} else if(orderDetail?.status=='Returned') {%>
+                        <div class="pe-5">
+                            <button class="btn btn-danger" disabled>ORDER RETURNED</button>
+                        </div>
+                    <%} else if(orderDetail?.status=='Delivered' || orderDetail?.status=='Completed') {%>
+                        <div class="pe-5">
+                            <button class="btn btn-success text-white" disabled>ORDER DELIVERED</button>
+                        </div>
+                    <%} else {%>
+                        
+                        <select class="form-select d-inline-block mb-lg-0 mb-15 status-select">
+                            <option class="status"><%= orderDetail?.status %></option>
+                            <% if(orderDetail?.status=='Pending'){ %>
+                                <option class="status">Confirmed</option>
+                                <option class="status">Shipped</option>
+                                <option class="status">Delivered</option>
+                            <% }else if(orderDetail?.status=='Confirmed') { %>
+                                <option class="status">Shipped</option>
+                                <option class="status">Delivered</option>
+                            <% }else if(orderDetail?.status=='Shipped') { %>
+                                <option class="status">Delivered</option>
+                            <% } %>
+                        </select>
+                        <a class="btn btn-primary status-update" data-orderid="<%= orderDetail?._id %>" 
+                            href="#">Save</a>
+                        
+                    <% } %>
+                </div> -->
+                </div>
+            </header> <!-- card-header end// -->
+            <div class="card-body">
+                <div class="row mb-50 mt-20 order-info-wrap">
+                    <div class="col-md-4">
+                        <article class="icontext align-items-start">
+                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                <i class="text-primary material-icons md-person"></i>
+                            </span>
+                            <div class="text">
+                                <h6 class="mb-1">Customer</h6>
+                                <p class="mb-1">
+                                    <%=orderDetail?.userId?.fullname%> <br>
+                                        <%=orderDetail?.userId?.email%> <br>
+                                            <%=orderDetail?.userId?.phone%>
+                                </p>
+                                <!-- <a href="#">View profile</a> -->
+                            </div>
+                        </article>
+                    </div> <!-- col// -->
+                    <div class="col-md-4">
+                        <article class="icontext align-items-start">
+                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                <i class="text-primary material-icons md-local_shipping"></i>
+                            </span>
+                            <div class="text">
+                                <h6 class="mb-1">Order info</h6>
+                                <p class="mb-1">
+                                    Shipping: Fargo express <br> Pay method: <%=orderDetail?.paymentMethod %><br>
+                                        Status:
+                                        new
+                                </p>
+                                <!-- <a href="#">Download info</a> -->
+                            </div>
+                        </article>
+                    </div> <!-- col// -->
+                    <div class="col-md-4">
+                        <article class="icontext align-items-start">
+                            <span class="icon icon-sm rounded-circle bg-primary-light">
+                                <i class="text-primary material-icons md-place"></i>
+                            </span>
+                            <div class="text">
+                                <h6 class="mb-1">Deliver to</h6>
+                                <p class="mb-1">
+                                    City: <%=orderDetail?.address?.street%>, <%=orderDetail?.address?.state%>
+                                            <br>
+                                            Houseno: <%=orderDetail?.address?.houseno%>
+                                                <br> Pin: <%=orderDetail?.address?.pincode%>
+                                </p>
+                                <!-- <a href="#">View profile</a> -->
+                            </div>
+                        </article>
+                    </div> <!-- col// -->
+                </div> <!-- row // -->
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+
+                                        <th width="30%">Product</th>
+                                        <th width="30%">Name</th>
+                                        <th width="20%">Unit Price</th>
+                                        <th width="20%">Quantity</th>
+                                        <th width="20%">Status</th>
+                                        <th width="20%">Total</th>
+                                        <th width="20%">Action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <% orderDetail?.product?.forEach(function(product) { %>
+                                        <tr>
+                                            <td>
+                                                <a class="itemside" href="#">
+                                                    <div class="left">
+                                                        <% if (product?.productId?.image) { %>
+                                                            <img src="upload/<%=product?.productId?.image[0] %>"
+                                                                class="product-image" alt="Product Image" width="50" />
+                                                            <% } else { %>
+                                                                <img src="upload/img.webp" alt="Default Image"
+                                                                    class="product-image" /><br>
+                                                                <% } %>
+
+                                                    </div>
+
+                                                </a>
+                                            </td>
+                                            <td>
+                                                <%=product?.productId?.name %>
+                                            </td>
+                                            <td>
+                                                <% if (orderDetail.coupon) { %>
+                                                    ₹<%= orderDetail.totalAmount.toFixed(2) %>
+                                                <% } else { %>
+                                                    ₹<%= product?.productPrice?.toFixed(2) %>
+                                                <% } %>
+                                            </td>
+                                            <td>
+                                                <%=product?.quantity %>
+                                            </td>
+                                            <td>
+                                                <div>
+                                                    <% if (product?.status=="Return Request" ) {%>
+                                                        <!-- <button class="badge rounded-pill alert-danger" disabled>
+                                                            <%=product?.status%>
+                                                        </button> -->
+                                                        <a class="btn btn-primary" id="returnapprove"
+                                                            data-id="<%=orderDetail?._id%>" &&
+                                                            data-proid="<%= product?._id %>" href="#">Approve Return</a>
+                                                        <%}else if(product?.status=='Cancelled' ){%>
+                                                            <div class="pe-5">
+                                                                <button class="btn btn-danger" disabled>ORDER
+                                                                    CANCELLED</button>
+                                                            </div>
+                                                            <%} else if(product?.status=='Returned' ) {%>
+                                                                <div class="pe-5">
+                                                                    <button class="btn btn-danger" disabled>ORDER
+                                                                        RETURNED</button>
+                                                                </div>
+                                                                <%} else if(product?.status=='Delivered' ||
+                                                                    product?.status=='Completed' ) {%>
+                                                                    <div class="pe-5">
+                                                                        <button class="btn btn-success text-white"
+                                                                            disabled>ORDER DELIVERED</button>
+                                                                    </div>
+                                                                    <%} else {%>
+                                                                        <select
+                                                                            class="form-select d-inline-block mb-0 product-status"
+                                                                            data-orderid="<%= orderDetail?._id %>"
+                                                                            data-productid="<%= product?._id %>">
+                                                                            <option value="Pending"
+                                                                                <%=product?.status==='Pending'
+                                                                                ? 'selected' : '' %>>Pending</option>
+                                                                            <option value="Confirmed"
+                                                                                <%=product?.status==='Confirmed'
+                                                                                ? 'selected' : '' %>>Confirmed</option>
+                                                                            <option value="Shipped"
+                                                                                <%=product?.status==='Shipped'
+                                                                                ? 'selected' : '' %>>Shipped</option>
+                                                                            <option value="Delivered"
+                                                                                <%=product?.status==='Delivered'
+                                                                                ? 'selected' : '' %>>Delivered</option>
+                                                                        </select>
+                                            </td>
+                                            <td class="text-end"> ₹<%= (product?.productId?.price *
+                                                    product?.quantity).toFixed(2) %>
+                                            </td>
+                                            <td class="text-end">
+                                                <button class="btn btn-primary btn-update-status" >Update</button>
+                                            </td>
+                                            <% } %>
+                        </div>
+                        </tr>
+                        <% }) %>
+                            </tbody>
+                            </table>
+
+                    </div>
+                </div>
+                
+                <div class="col-lg-4">
+                    <div class="box shadow-sm bg-light">
+                        <h6 class="mb-15">Payment info:
+                        
+                            <%=orderDetail?.paymentMethod %>
+                        
+                        </h6>
+                        <h6 class="mb-15">Payment status:
+                        <% if (orderDetail?.paymentStatus=="refund" ) { %>
+                            <span class="badge rounded-pill alert-success">Refund</span>
+                            <% } else if (orderDetail?.paymentStatus=="paid" ) { %>
+                                <span class="badge badge-pill badge-soft-success">Paid</span>
+                                <%} else { %>
+                                    <span class="badge badge-pill badge-soft-danger">Unpaid</span>
+                                    <% } %></h6>
+                                    <% if(orderDetail.coupon){%>
+                                        <h6 class="mb-15">Used Coupon :    
+                                            <span class="badge badge-pill badge-soft-success"><%=orderDetail.coupon%></span></h6>
+                                    
+                                        <%}%>
+            
+                                    
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+    </section>
+
+    <%-include('../partials/adminfooterr')-%>
+
+
+
+        <script>
+            $(".btn-update-status").on('click', function () {
+                var orderId = $(this).closest('tr').find('.product-status').data('orderid');
+                var productId = $(this).closest('tr').find('.product-status').data('productid');
+                var status = $(this).closest('tr').find('.product-status').val();
+
+                var data = {
+                    orderId: orderId,
+                    productId: productId,
+                    status: status
+                };
+
+                console.log(data); // Log the data object
+                $.ajax({
+                    url: '/admin/statusupdate',
+                    method: "POST",
+                    data: data,
+                    success: function (response) {
+                        if (response.success) {
+                            Swal.fire({
+                                title: "Success",
+                                text: "Status updated successfully",
+                                icon: "success",
+                                confirmButtonText: "OK"
+                            }).then((result) => {
+                                if (result.isConfirmed) {
+                                    // Refresh the page or perform any other necessary action
+                                }
+                            });
+                        } else {
+                            Swal.fire({
+                                title: "Error",
+                                text: "Failed to update status",
+                                icon: "error",
+                                confirmButtonText: "OK"
+                            });
+                        }
+                    },
+                    error: function (xhr, status, error) {
+                        Swal.fire({
+                            title: "Error",
+                            text: "net work issue",
+                            icon: "error",
+                            confirmButtonText: "OK"
+                        });
+                    }
+                })
+            });
+
+            $('#returnapprove').on('click', function () {
+                console.log("clicked");
+                let orderid = $(this).data("id")
+                let proid = $(this).data("proid")
+                let data = {
+                    id: orderid,
+                    proid: proid
+                };
+                Swal.fire({
+                    title: "Are you sure?",
+                    text: "This action cannot undone!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#3085d6",
+                    cancelButtonColor: "#d33",
+                    confirmButtonText: "Yes",
+                }).then((result) => {
+                    console.log(result);
+                    if (result.isConfirmed) {
+                        $.ajax({
+                            url: "/admin/returnapprove",
+                            method: "post",
+                            data: data,
+                            success: function (response) {
+                                if (response.message == "1") {
+                                    Swal.fire({
+                                        title: "Success",
+                                        text: "Return Approved",
+                                        icon: "success",
+                                        confirmButtonText: "OK",
+                                    }).then((result) => {
+                                        if (result.isConfirmed) {
+                                            window.location.href = "/admin/order"; // Redirect to another page
+                                        }
+                                    });
+                                } else {
+                                    Swal.fire({
+                                        title: "Error",
+                                        text: "Something went worng",
+                                        icon: "error",
+                                        confirmButtonText: "OK",
+                                    });
+                                }
+                            },
+                        });
+                    }
+                });
+            })
+
+
+        </script>

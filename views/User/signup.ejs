@@ -1,0 +1,212 @@
+<%-include("../partials/userheader")-%>
+
+
+	<main class="main">
+		<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+			<div class="container">
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a href="/">Home</a></li>
+					<li class="breadcrumb-item"><a href="#">Pages</a></li>
+					<li class="breadcrumb-item active" aria-current="page">Signup</li>
+				</ol>
+			</div><!-- End .container -->
+		</nav><!-- End .breadcrumb-nav -->
+
+		<div class="login-page bg-image pt-8 pb-8 pt-md-12 pb-md-12 pt-lg-17 pb-lg-17">
+			<div class="container">
+				<div class="form-box">
+					<div class="form-tab">
+						<ul class="nav nav-pills nav-fill" role="tablist">
+
+							<li class="nav-item">
+								<a>
+									<h2>SIGNUP</h2>
+								</a>
+							</li>
+						</ul>
+						<div class="tab-content">
+
+							<div class="tab-pane fade show active" id="register-2" role="tabpanel"
+								aria-labelledby="register-tab-2">
+
+								<form action="/signup" method="post">
+									<div class="form-group">
+										<label for="register-email-2">Your Fullname *</label>
+										<input type="username" class="form-control" id="fullname" name="fullname"
+											placeholder="Enter your fullname" required>
+										<div id="na" style="color: red;"></div>
+									</div><!-- End .form-group -->
+									<div class="form-group">
+										<label for="register-email-2">Your email address *</label>
+										<input type="email" class="form-control" id="email" name="email"
+											placeholder="Enter your email address" required>
+										<div id="mail" style="color: red;"></div>
+									</div><!-- End .form-group -->
+									<div class="form-group">
+										<label for="register-phone-2">Phone Number*</label>
+										<input type="text" class="form-control" id="phone" name="phone"
+											placeholder="Enter your Phone" required>
+										<div id="phone_num" style="color: red;"></div>
+									</div><!-- End .form-group -->
+
+									<div class="form-group">
+										<label for="register-password-2">Password *</label>
+										<input type="password" class="form-control" id="password" name="password"
+											placeholder="Enter your password" required>
+										<div id="pass" style="color: red;"></div>
+									</div><!-- End .form-group -->
+									<div class="form-group">
+										<label for="register-password-2">Retype Password *</label>
+										<input type="password" class="form-control" id="repassword" name="repassword"
+											required>
+										<div id="repass" style="color: red;"></div>
+									</div><!-- End .form-group -->
+
+									<div class="form-footer">
+										<button id="submit" type="submit" class="btn btn-outline-primary-2">
+											<span>SIGN UP</span>
+											<i class="icon-long-arrow-right"></i>
+										</button>
+
+										<div class="custom-control custom-checkbox">
+											<input type="checkbox" class="custom-control-input" id="register-policy-2"
+												required>
+											<label class="custom-control-label" for="register-policy-2">I agree to the
+												<a href="#">privacy policy</a> *</label>
+											<a href="/otpsignup">
+												<p class="text-center">or sign in with OTP</p>
+											</a>
+										</div><!-- End .custom-checkbox -->
+									</div><!-- End .form-footer -->
+								</form>
+
+
+							</div><!-- .End .tab-pane -->
+						</div><!-- End .tab-content -->
+					</div><!-- End .form-tab -->
+				</div><!-- End .form-box -->
+			</div><!-- End .container -->
+		</div><!-- End .login-page section-bg -->
+	</main><!-- End .main -->
+
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.18/dist/sweetalert2.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+
+	<% if (locals.title) { %>
+		<script>
+			Swal.fire({
+				icon: 'info',
+				title: '<%=title%>',
+				showConfirmButton: false,
+				timer: 10000
+			}); 
+		</script>
+		<% } %>
+
+
+
+
+
+		<script>
+			$('#submit').on('click', function () {
+				let fullname = $('#fullname').val();
+				let email = $('#email').val();
+				let phone = $('#phone').val();
+				let password = $('#password').val();
+				let repassword = $('#repassword').val();
+				let message = "Error";
+		
+				let emailFormat = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$/;
+				let nameformat = /^[a-zA-Z ]+$/;
+				let passwordformat = /^[a-zA-Z0-9]{6,}$/;
+				let phone_format = /^\d{10}$/;
+		
+				let validate = true;
+		
+				if (!fullname.match(nameformat)) {
+					let text = "Please enter a valid name";
+					document.getElementById('na').innerHTML = text;
+					message = "Please enter a valid name";
+					console.log(message);
+					$('#fullname').focus();
+					validate = false;
+				} else if (!email.match(emailFormat)) {
+					let text = "Please enter a valid email address";
+					document.getElementById('mail').innerHTML = text;
+					$('#email').focus();
+					validate = false;
+				} else if (!phone.match(phone_format)) {
+					let text = "Please enter a valid 10-digit phone number";
+					document.getElementById('phone_num').innerHTML = text;
+					$('#phone').focus();
+					validate = false;
+				} else if (!password.match(passwordformat)) {
+					let text = "Please enter a valid password (at least 6 characters)";
+					document.getElementById('pass').innerHTML = text;
+					$('#password').focus();
+					validate = false;
+				} else if (repassword !== password) {
+					let text = "Retyped password is incorrect";
+					document.getElementById('repass').innerHTML = text;
+					$('#repassword').focus();
+					validate = false;
+				}
+		
+				if (validate) {
+					const data = {
+						"fullname": fullname,
+						"email": email,
+						"phone": phone,
+						"password": password,
+						"repassword": repassword,
+					};
+		
+					$.ajax({
+						url: "/signup",
+						method: "post",
+						data: data,
+						success: function (response) {
+							if (response.message === "successful") {
+								Swal.fire({
+									title: "Success",
+									text: "Registration successful",
+									icon: "success",
+									confirmButtonText: "OK"
+								}).then((result) => {
+									if (result.isConfirmed) {
+										location.href = "/login";
+									}
+								});
+							} else {
+								if(response.message === 'error')
+								Swal.fire({
+									title: "Error",
+									text: response.message,
+									icon: "error",
+									confirmButtonText: "OK"
+								});
+							}
+						},
+						error: function (error) {
+							Swal.fire({
+								title: "Error",
+								text: "An error occurred while processing your request.",
+								icon: "error"
+							});
+						}
+					});
+				} else {
+					Swal.fire({
+						title: "Error",
+						text: "Please resolve the errors in the form.",
+						icon: "error"
+					});
+				}
+			});
+		</script>
+		
+
+			<%-include("../partials/userfooter")-%>
